@@ -247,6 +247,10 @@ output {
         font-size: 20px;
     }
 
+    output {
+        font-size: 30px;
+    }
+
     .unit {
         font-size: 14px;
         padding: 8px 5px;
