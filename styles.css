@@ -114,15 +114,13 @@ output {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    background-color: transparent;
-    border: none;
-    padding: 0;
+    margin-bottom: 15px;
 }
 
 .output-group.inline label {
-    width: auto;
     margin-right: 10px;
     font-size: 20px;
+    color: #545454;
 }
 
 .output-group.inline .output-wrapper {
@@ -131,7 +129,7 @@ output {
 }
 
 .output-group.inline output {
-    font-size: 40px;
+    font-size: 30px;
     color: #009bdd;
     font-weight: bold;
     margin-right: 5px;
@@ -140,9 +138,6 @@ output {
 .output-group.inline .unit {
     font-size: 20px;
     color: #545454;
-    background-color: transparent;
-    border: none;
-    padding: 0;
 }
 
 .card.total-expenses {
@@ -244,30 +239,28 @@ output {
     }
 
     .output-group.inline {
-        flex-wrap: wrap;
-        justify-content: flex-start;
+        justify-content: flex-end; /* 右寄せ */
     }
 
     .output-group.inline label {
-        width: 100%;
-        margin-bottom: 5px;
         font-size: 16px;
-        font-weight: bold; /* スマホビューでのみ太字に */
+        font-weight: bold;
+        margin-right: 5px; /* ラベルと数値の間隔を調整 */
+    }
+
+    .output-group.inline output {
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    .output-group.inline .unit {
+        font-size: 16px;
+        font-weight: bold;
     }
 
     .output-group.inline .output-wrapper {
         width: 100%;
         justify-content: flex-end;
-    }
-
-    .output-group.inline output {
-        font-size: 30px; /* パソコンビューと同じサイズを維持 */
-        font-weight: bold; /* パソコンビューと同じ太字を維持 */
-    }
-
-    .output-group.inline .unit {
-        font-size: 16px;
-        font-weight: bold; /* スマホビューでのみ太字に */
     }
     
     .card.total-expenses .output-group.total.inline {
