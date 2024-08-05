@@ -247,7 +247,7 @@ output {
         font-size: 20px;
     }
 
-    output {
+    .output-group.inline output {
         font-size: 30px;
     }
 
