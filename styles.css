@@ -189,6 +189,18 @@ output {
     color: #545454;
 }
 
+label[for="buffer-fund"] {
+    display: inline-block;
+    line-height: 1.4;
+    margin-bottom: 10px;
+}
+
+label[for="dream-expenses"] {
+    display: inline-block;
+    line-height: 1.4;
+    margin-bottom: 10px;
+}
+
 /* スマートフォン向けスタイル */
 @media (max-width: 600px) {
     .output-group.inline label {
@@ -267,6 +279,28 @@ output {
         font-weight: bold;
         white-space: nowrap;
     }
+
+    .output-group.total.inline {
+        flex-wrap: nowrap;
+        justify-content: flex-end;
+    }
+
+    .output-group.total.inline label {
+        font-size: 16px;
+        font-weight: bold;
+        margin-right: 5px;
+    }
+
+    .output-group.total.inline output {
+        font-size: 24px;
+        font-weight: bold;
+        margin-right: 2px;
+    }
+
+    .output-group.total.inline .unit {
+        font-size: 16px;
+        font-weight: bold;
+    }
     
     .card.total-expenses .output-group.total.inline {
         flex-wrap: wrap;
@@ -286,6 +320,14 @@ output {
 
     .card.total-expenses .unit {
         font-size: 16px;
+    }
+
+    .label[for="buffer-fund"] {
+        font-size: 15px;
+    }
+
+    .label[for="dream-expenses"] {
+        font-size: 15px;
     }
 
 }
