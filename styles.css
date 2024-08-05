@@ -165,6 +165,7 @@ output {
     margin-right: 10px;
     font-size: 30px;
     color: #545454;
+    font-weight: bold;
 }
 
 .card.total-expenses .output-wrapper {
@@ -187,6 +188,7 @@ output {
 .card.total-expenses .unit {
     font-size: 30px;
     color: #545454;
+    font-weight: bold;
 }
 
 label[for="buffer-fund"] {
@@ -210,9 +212,10 @@ label[for="dream-expenses"] {
 
 .output-group.total.inline label {
     margin-right: 10px;
-    font-size: 20px;
+    font-size: 30px;
     color: #545454;
     white-space: nowrap;
+    font-weight: bold;
 }
 
 .output-group.total.inline .output-wrapper {
@@ -221,14 +224,14 @@ label[for="dream-expenses"] {
 }
 
 .output-group.total.inline output {
-    font-size: 30px;
-    color: #f1b315;
+    font-size: 40px;
+    color: #009bdd;
     font-weight: bold;
     margin-right: 5px;
 }
 
 .output-group.total.inline .unit {
-    font-size: 20px;
+    font-size: 30px;
     color: #545454;
     white-space: nowrap;
 }
