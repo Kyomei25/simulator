@@ -243,17 +243,25 @@ output {
         font-size: 20px;
     }
 
+    .output-group.inline label {
+        width: 100%;
+        margin-bottom: 5px;
+        font-size: 16px;
+        font-weight: bold; /* スマホビューでのみ太字に */
+    }
+
     .output-wrapper .unit {
         font-size: 20px;
     }
 
     .output-group.inline output {
-        font-size: 30px;
+        font-size: 30px; /* パソコンビューと同じサイズを維持 */
+        font-weight: bold; /* パソコンビューと同じ太字を維持 */
     }
 
-    .unit {
-        font-size: 14px;
-        padding: 8px 5px;
+    .output-group.inline .unit {
+        font-size: 16px;
+        font-weight: bold; /* スマホビューでのみ太字に */
     }
     
     .card.total-expenses .output-group.total.inline {
