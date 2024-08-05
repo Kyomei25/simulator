@@ -243,6 +243,11 @@ output {
         font-size: 20px;
     }
 
+    .output-group.inline {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
     .output-group.inline label {
         width: 100%;
         margin-bottom: 5px;
@@ -250,8 +255,9 @@ output {
         font-weight: bold; /* スマホビューでのみ太字に */
     }
 
-    .output-wrapper .unit {
-        font-size: 20px;
+    .output-group.inline .output-wrapper {
+        width: 100%;
+        justify-content: flex-end;
     }
 
     .output-group.inline output {
