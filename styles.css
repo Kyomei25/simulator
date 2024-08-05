@@ -86,7 +86,6 @@ input[type="number"] {
 
 .output-group {
     background-color: #e6f7ff;
-    border: 1px solid #009bdd;
     border-radius: 5px;
     padding: 10px;
 }
@@ -129,7 +128,7 @@ output {
 }
 
 .output-group.inline output {
-    font-size: 30px;
+    font-size: 40px;
     color: #009bdd;
     font-weight: bold;
     margin-right: 5px;
