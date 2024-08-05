@@ -315,51 +315,31 @@ label[for="dream-expenses"] {
         font-weight: bold;
         white-space: nowrap;
     }
-
-    .output-group.total.inline {
+    
+    .card.total-expenses .output-group.total.inline {
         display: flex;
         flex-wrap: nowrap;
         justify-content: flex-end;
         align-items: center;
     }
 
-    .output-group.total.inline label {
+    .card.total-expenses .output-group.total.inline label {
         font-size: 20px;
         font-weight: bold;
         margin-right: 5px;
         white-space: nowrap;
     }
 
-    .output-group.total.inline output {
-        font-size: 30px;
+    .card.total-expenses output {
+        fofont-size: 30px;
         font-weight: bold;
         margin-right: 2px;
     }
 
-    .output-group.total.inline .unit {
+    .card.total-expenses .unit {
         font-size: 20px;
         font-weight: bold;
         white-space: nowrap;
-    }
-    
-    .card.total-expenses .output-group.total.inline {
-        flex-wrap: wrap;
-        justify-content: flex-end;
-    }
-
-    .card.total-expenses .output-group.total.inline label {
-        width: 100%;
-        text-align: right;
-        margin-bottom: 5px;
-        font-size: 16px;
-    }
-
-    .card.total-expenses output {
-        font-size: 24px;
-    }
-
-    .card.total-expenses .unit {
-        font-size: 16px;
     }
 
     .label[for="buffer-fund"] {
