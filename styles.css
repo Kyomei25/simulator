@@ -201,6 +201,39 @@ label[for="dream-expenses"] {
     margin-bottom: 10px;
 }
 
+.output-group.total.inline {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
+
+.output-group.total.inline label {
+    margin-right: 10px;
+    font-size: 20px;
+    color: #545454;
+    white-space: nowrap;
+}
+
+.output-group.total.inline .output-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.output-group.total.inline output {
+    font-size: 30px;
+    color: #f1b315;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.output-group.total.inline .unit {
+    font-size: 20px;
+    color: #545454;
+    white-space: nowrap;
+}
+
+
 /* スマートフォン向けスタイル */
 @media (max-width: 600px) {
     .output-group.inline label {
