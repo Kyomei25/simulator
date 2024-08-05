@@ -55,3 +55,30 @@ document.addEventListener('DOMContentLoaded', function() {
     // 初期計算
     calculateAll();
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('retirement-calculator');
+    const inputs = form.querySelectorAll('input[type="number"]');
+
+    inputs.forEach(input => {
+        input.addEventListener('input', function() {
+            if (this.value < 0) {
+                this.value = 0;
+            }
+        });
+        input.addEventListener('input', calculateAll);
+    });
+
+    function calculateAll() {
+        calculateRetirementYears();
+        calculateMonthlyExpenses();
+        calculateYearlyExpenses();
+        calculateTotalExpenses();
+    }
+
+    // 既存の計算関数はそのまま
+    // ...
+
+    // 初期計算
+    calculateAll();
+});

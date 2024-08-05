@@ -15,19 +15,16 @@ h1 {
 }
 
 form {
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     max-width: 800px;
     margin: 0 auto;
 }
 
-section {
+.card {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     margin-bottom: 30px;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 10px;
 }
 
 h2 {
@@ -35,47 +32,183 @@ h2 {
     font-size: 30px;
     font-weight: bold;
     margin-bottom: 20px;
-    border-bottom: 2px solid #f1b315;
+    border-bottom: 2px solid #009bdd;
     padding-bottom: 10px;
 }
 
-.input-group, .output-group {
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     margin-bottom: 15px;
 }
 
-label {
-    display: inline-block;
+.input-group label {
     width: 100%;
-    font-size: 20px;
+    text-align: left;
     margin-bottom: 5px;
+    font-size: 20px;
     color: #545454;
 }
 
+.input-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+}
+
 input[type="number"] {
-    width: calc(100% - 22px);
+    flex-grow: 1;
     padding: 10px;
     border: 1px solid #009bdd;
-    border-radius: 5px;
+    border-right: none;
+    border-radius: 5px 0 0 5px;
     font-size: 20px;
     color: #545454;
+    height: 40px;
+    box-sizing: border-box;
+}
+
+.unit {
+    background-color: #e6f7ff;
+    padding: 10px;
+    border: 1px solid #009bdd;
+    border-left: none;
+    border-radius: 0 5px 5px 0;
+    font-size: 16px;
+    color: #545454;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    box-sizing: border-box;
+}
+
+
+.output-group {
+    background-color: #e6f7ff;
+    border: 1px solid #009bdd;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.output-wrapper {
+    justify-content: flex-end;
+}
+
+.output-wrapper .unit {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    height: auto;
+    margin-left: 5px;
 }
 
 output {
     font-weight: bold;
     color: #009bdd;
-    font-size: 30px;
+    font-size: 40px;
+    text-align: right;
 }
 
-.total {
-    font-size: 24px;
+.output-group.inline {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+
+.output-group.inline label {
+    width: auto;
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.output-group.inline .output-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.output-group.inline output {
+    font-size: 40px;
+    color: #009bdd;
     font-weight: bold;
-    color: #f1b315;
-    background-color: #f9f9f9;
-    padding: 15px;
-    border-radius: 10px;
-    text-align: center;
+    margin-right: 5px;
 }
 
+.output-group.inline .unit {
+    font-size: 20px;
+    color: #545454;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+
+.card.total-expenses {
+    background-color: #e6f7ff; /* 薄い青色 */
+    border: 2px solid #009bdd; /* 枠線を追加 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 影を追加してカードの立体感を出す */
+}
+
+.card.total-expenses h2 {
+    color: #009bdd;
+    margin-bottom: 15px;
+    text-shadow: 
+        -2px -2px 0 #fff,
+        2px -2px 0 #fff,
+        -2px 2px 0 #fff,
+        2px 2px 0 #fff; /* 白い縁取りを追加 */
+}
+
+.card.total-expenses .output-group.total.inline {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.card.total-expenses .output-group.total.inline label {
+    margin-right: 10px;
+    font-size: 30px;
+    color: #545454;
+}
+
+.card.total-expenses .output-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.card.total-expenses output {
+    font-size: 40px;
+    color: #009bdd;
+    font-weight: bold;
+    margin-right: 5px;
+    text-shadow: 
+        -2px -2px 0 #fff,
+        2px -2px 0 #fff,
+        -2px 2px 0 #fff,
+        2px 2px 0 #fff; /* 白い縁取りを追加 */
+}
+
+.card.total-expenses .unit {
+    font-size: 30px;
+    color: #545454;
+}
+
+/* スマートフォン向けスタイル */
+@media (max-width: 600px) {
+    .output-group.inline label {
+        font-size: 15px;
+    }
+
+    .output-group.inline output {
+        font-size: 20px;
+    }
+
+    .output-group.inline .unit {
+        font-size: 15px;
+    }
+}
 /* スマートフォン向けスタイル */
 @media (max-width: 600px) {
     body {
@@ -86,7 +219,7 @@ output {
         font-size: 30px;
     }
 
-    form {
+    .card {
         padding: 15px;
     }
 
@@ -94,19 +227,49 @@ output {
         font-size: 20px;
     }
 
-    label {
+    .input-group label {
         font-size: 15px;
     }
+    input[type="number"], .unit {
+        height: 36px;
+    }
 
-    input[type="number"] {
-        font-size: 15px;
+    .input-wrapper .unit {
+        font-size: 14px;
+        padding: 8px 5px;
     }
 
     output {
         font-size: 20px;
     }
 
-    .total {
-        font-size: 18px;
+    .output-wrapper .unit {
+        font-size: 14px;
     }
+
+    .unit {
+        font-size: 14px;
+        padding: 8px 5px;
+    }
+    
+    .card.total-expenses .output-group.total.inline {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+
+    .card.total-expenses .output-group.total.inline label {
+        width: 100%;
+        text-align: right;
+        margin-bottom: 5px;
+        font-size: 16px;
+    }
+
+    .card.total-expenses output {
+        font-size: 24px;
+    }
+
+    .card.total-expenses .unit {
+        font-size: 16px;
+    }
+
 }

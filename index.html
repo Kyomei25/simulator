@@ -7,119 +7,153 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="decorative-element"></div>
-<div class="decorative-element"></div>
     <h1>1分でわかる／老後の支出</h1>
     <form id="retirement-calculator">
-        <section>
+        <div class="card">
             <h2>老後の期間</h2>
             <div class="input-group">
                 <label for="retirement-age">老後が始まる年齢（退職年齢）：</label>
-                <input type="number" id="retirement-age" name="retirement-age" required>
-                <span>歳</span>
+                <div class="input-wrapper">
+                    <input type="number" id="retirement-age" name="retirement-age" min="0" required>
+                    <span class="unit">歳</span>
+                </div>
             </div>
             <div class="input-group">
                 <label for="life-expectancy">何歳まで生きるか：</label>
-                <input type="number" id="life-expectancy" name="life-expectancy" required>
-                <span>歳</span>
+                <div class="input-wrapper">
+                    <input type="number" id="life-expectancy" name="life-expectancy" min="0" required>
+                    <span class="unit">歳</span>
+                </div>
             </div>
-            <div class="output-group">
-                <label for="retirement-years">老後は何年間：</label>
-                <output id="retirement-years"></output>
-                <span>年間</span>
+            <div class="output-group inline">
+                <label for="retirement-years">老後は</label>
+                <div class="output-wrapper">
+                    <output id="retirement-years"></output>
+                    <span class="unit">年間</span>
+                </div>
             </div>
-        </section>
+        </div>
 
-        <section>
+        <div class="card">
             <h2>毎月の支出</h2>
             <div class="input-group">
                 <label for="food-expenses">食費：</label>
-                <input type="number" id="food-expenses" name="food-expenses" step="0.1" required>
-                <span>万円/月</span>
+                <div class="input-wrapper">
+                    <input type="number" id="food-expenses" name="food-expenses" step="0.1" min="0" required>
+                    <span class="unit">万円/月</span>
+                </div>
             </div>
             <div class="input-group">
                 <label for="daily-expenses">日用品・被服費：</label>
-                <input type="number" id="daily-expenses" name="daily-expenses" step="0.1" required>
-                <span>万円/月</span>
+                <div class="input-wrapper">
+                    <input type="number" id="daily-expenses" name="daily-expenses" step="0.1" min="0" required>
+                    <span class="unit">万円/月</span>
+                </div>
             </div>
             <div class="input-group">
                 <label for="utility-expenses">ガス・水道・光熱費：</label>
-                <input type="number" id="utility-expenses" name="utility-expenses" step="0.1" required>
-                <span>万円/月</span>
+                <div class="input-wrapper">
+                    <input type="number" id="utility-expenses" name="utility-expenses" step="0.1" min="0" required>
+                    <span class="unit">万円/月</span>
+                </div>
             </div>
             <div class="input-group">
                 <label for="communication-expenses">通信費（スマホ・インターネット）：</label>
-                <input type="number" id="communication-expenses" name="communication-expenses" step="0.1" required>
-                <span>万円/月</span>
+                <div class="input-wrapper">
+                    <input type="number" id="communication-expenses" name="communication-expenses" step="0.1" min="0" required>
+                    <span class="unit">万円/月</span>
+                </div>
             </div>
             <div class="input-group">
                 <label for="transportation-expenses">交通費・車関連費（税金含む）：</label>
-                <input type="number" id="transportation-expenses" name="transportation-expenses" step="0.1" required>
-                <span>万円/月</span>
+                <div class="input-wrapper">
+                    <input type="number" id="transportation-expenses" name="transportation-expenses" step="0.1" min="0" required>
+                    <span class="unit">万円/月</span>
+                </div>
             </div>
             <div class="input-group">
                 <label for="hobby-expenses">お小遣い・趣味／娯楽費・交際費：</label>
-                <input type="number" id="hobby-expenses" name="hobby-expenses" step="0.1" required>
-                <span>万円/月</span>
+                <div class="input-wrapper">
+                    <input type="number" id="hobby-expenses" name="hobby-expenses" step="0.1" min="0" required>
+                    <span class="unit">万円/月</span>
+                </div>
             </div>
             <div class="input-group">
                 <label for="housing-expenses">住宅ローン・家賃：</label>
-                <input type="number" id="housing-expenses" name="housing-expenses" step="0.1" required>
-                <span>万円/月</span>
+                <div class="input-wrapper">
+                    <input type="number" id="housing-expenses" name="housing-expenses" step="0.1" min="0" required>
+                    <span class="unit">万円/月</span>
+                </div>
             </div>
             <div class="input-group">
                 <label for="education-expenses">学費：</label>
-                <input type="number" id="education-expenses" name="education-expenses" step="0.1" required>
-                <span>万円/月</span>
+                <div class="input-wrapper">
+                    <input type="number" id="education-expenses" name="education-expenses" step="0.1" min="0" required>
+                    <span class="unit">万円/月</span>
+                </div>
             </div>
-            <div class="output-group">
+            <div class="output-group inline">
                 <label for="monthly-total">月額小計：</label>
-                <output id="monthly-total"></output>
-                <span>万円/月</span>
+                <div class="output-wrapper">
+                    <output id="monthly-total"></output>
+                    <span class="unit">万円/月</span>
+                </div>
             </div>
-        </section>
+        </div>
 
-        <section>
+        <div class="card">
             <h2>年間の支出</h2>
             <div class="input-group">
                 <label for="insurance-expenses">年間保険料：</label>
-                <input type="number" id="insurance-expenses" name="insurance-expenses" step="0.1" required>
-                <span>万円/年</span>
+                <div class="input-wrapper">
+                    <input type="number" id="insurance-expenses" name="insurance-expenses" step="0.1" min="0" required>
+                    <span class="unit">万円/年</span>
+                </div>
             </div>
             <div class="input-group">
                 <label for="dream-expenses">叶えたい夢の年間予算：</label>
-                <input type="number" id="dream-expenses" name="dream-expenses" step="0.1" required>
-                <span>万円/年</span>
+                <div class="input-wrapper">
+                    <input type="number" id="dream-expenses" name="dream-expenses" step="0.1" min="0" required>
+                    <span class="unit">万円/年</span>
+                </div>
             </div>
             <div class="input-group">
                 <label for="other-expenses">その他の年間予算：</label>
-                <input type="number" id="other-expenses" name="other-expenses" step="0.1" required>
-                <span>万円/年</span>
+                <div class="input-wrapper">
+                    <input type="number" id="other-expenses" name="other-expenses" step="0.1" min="0" required>
+                    <span class="unit">万円/年</span>
+                </div>
             </div>
-            <div class="output-group">
+            <div class="output-group inline">
                 <label for="yearly-total">年額小計：</label>
-                <output id="yearly-total"></output>
-                <span>万円/年</span>
+                <div class="output-wrapper">
+                    <output id="yearly-total"></output>
+                    <span class="unit">万円/年</span>
+                </div>
             </div>
-        </section>
+        </div>
 
-        <section>
+        <div class="card">
             <h2>余裕資金</h2>
             <div class="input-group">
                 <label for="buffer-fund">余裕をもって準備したい額：</label>
-                <input type="number" id="buffer-fund" name="buffer-fund" step="0.1" required>
-                <span>万円</span>
+                <div class="input-wrapper">
+                    <input type="number" id="buffer-fund" name="buffer-fund" step="0.1" min="0" required>
+                    <span class="unit">万円</span>
+                </div>
             </div>
-        </section>
+        </div>
 
-        <section>
+        <div class="card total-expenses">
             <h2>老後期間の支出合計</h2>
-            <div class="output-group total">
+            <div class="output-group total inline">
                 <label for="total-expenses">老後合計：</label>
-                <output id="total-expenses"></output>
-                <span>万円</span>
+                <div class="output-wrapper">
+                    <output id="total-expenses"></output>
+                    <span class="unit">万円</span>
+                </div>
             </div>
-        </section>
+        </div>
     </form>
 
     <script src="script.js"></script>
