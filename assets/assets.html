@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>５分でできる！いまある資産を把握しよう！</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    
+    <form id="asset-calculator">
+        <div class="card">
+            <h2 class="main-title">現在持っている資産</h2>
+            <section>
+                <h3>運用されていない資産</h3>
+                <div class="input-group">
+                    <label for="bank-assets">
+                        銀行に預けている資産・現金<br>
+                        （普通預金・定期預金など）：
+                    </label>
+                    <div class="input-wrapper">
+                        <input type="number" id="bank-assets" name="bank-assets" min="0" step="0.1" required>
+                        <span class="unit">万円</span>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="other-non-invested-assets">その他の運用されていない資産：</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="other-non-invested-assets" name="other-non-invested-assets" min="0" step="0.1" required>
+                        <span class="unit">万円</span>
+                    </div>
+                </div>
+                <div class="output-group inline">
+    <span class="output-label">運用しない資産合計：</span>
+    <output id="total-non-invested"></output>
+    <span class="unit no-frame">万円</span>
+</div>
+                </div>
+            </section>
+            <section>
+                <div class="card">
+                <h3>運用されている資産</h3>
+                <div class="input-group">
+                    <label for="securities-assets">
+                        証券会社に預けている資産<br>
+                        （NISA・投資信託・株式・債券など）：
+                    </label>
+                    <div class="input-wrapper">
+                        <input type="number" id="securities-assets" name="securities-assets" min="0" step="0.1" required>
+                        <span class="unit">万円/時価</span>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="insurance-assets">
+                        保険会社に預けている資産<br>
+                        （貯蓄性保険/終身保険・学資保険など）：
+                    </label>
+                    <div class="input-wrapper">
+                        <input type="number" id="insurance-assets" name="insurance-assets" min="0" step="0.1" required>
+                        <span class="unit">万円/時価</span>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="other-invested-assets">その他の投資資産：</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="other-invested-assets" name="other-invested-assets" min="0" step="0.1" required>
+                        <span class="unit">万円/時価</span>
+                    </div>
+                </div>
+                <div class="output-group inline">
+
+                    <span class="output-label">運用する資産合計：</span>
+                    <output id="total-invested"></output>
+                
+                    <span class="unit no-frame">万円</span>
+                
+                </div>
+                </div>
+            </section>
+            <section>
+                
+                <div class="output-group total inline">
+                    <span class="output-label">現在の資産合計：</span>
+                    <output id="total-assets"></output>
+                    <span class="unit no-frame">万円/時価</span>
+                </div>
+                </div>
+            </section>
+             <div class="card">
+                <h2>資産配分グラフ</h2>
+                <canvas id="assetAllocationChart" style="height: 400px; width: 100%;"></canvas>
+            </div>
+            
+        
+        </div>
+    </form>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+</body>
+</html>

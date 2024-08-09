@@ -1,0 +1,293 @@
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    background-color: #ffffff;
+    color: #545454;
+}
+.main-title {
+    color: #545454;
+    font-weight: bold;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    font-size: 30px;
+    text-align: center;
+    border-bottom: none;
+}
+
+h1 {
+    text-align: center;
+    color: #f1b315;
+    font-size: 40px;
+    margin-bottom: 30px;
+}
+
+form {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.card {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+h2, h3 {
+    color: #009bdd;
+    font-weight: bold;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #009bdd;
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+h3 {
+    font-size: 24px;
+}
+
+.input-group, .output-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: inline-block;
+    width: 100%;
+    font-size: 20px;
+    margin-bottom: 5px;
+    color: #545454;
+}
+
+.input-wrapper, .output-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+input[type="number"] {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #009bdd;
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+    font-size: 20px;
+    color: #545454;
+    height: 40px;
+    box-sizing: border-box;
+}
+
+.unit {
+    background-color: #e6f7ff;
+    padding: 10px;
+    border: 1px solid #009bdd;
+    border-left: none;
+    border-radius: 0 5px 5px 0;
+    font-size: 20px;
+    color: #545454;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    box-sizing: border-box;
+}
+
+.output-group.inline {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: #e6f7ff;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+.output-group.inline .output-label {
+    font-size: 20px;
+    white-space: nowrap;
+}
+.output-group.inline label {
+    margin-right: 10px;
+    font-size: 20px;
+    white-space: nowrap;
+}
+
+.output-group.inline .output-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.output-group.inline output {
+    font-weight: bold;
+    color: #009bdd;
+    font-size: 40px;
+    margin-right: 5px;
+}
+
+.output-group.inline .unit.no-frame {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    font-size: 20px;
+    color: #545454;
+}
+
+.output-group.total.inline {
+    background-color: #f9f9f9;
+    border-color: #009bdd;
+}
+
+.output-group.total.inline output {
+    color: #009bdd;
+    font-size: 30px;
+}
+
+.output-group.total.inline {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: #e6f7ff;
+    border: 2px solid #009bdd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.output-group.total.inline .output-label {
+    font-size: 30px;
+    font-weight: bold;
+    white-space: nowrap;
+    color: #545454;
+}
+
+.output-group.total.inline output {
+    font-weight: bold;
+    color: #009bdd;
+    font-size: 40px;
+    margin: 0 5px;
+}
+
+.output-group.total.inline .unit.no-frame {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    font-size: 30px;
+    font-weight: bold;
+    color: #545454;
+}
+
+#assetAllocationChart {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* スマートフォン向けスタイル */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    .main-title {
+        font-size: 30px;
+    }    
+
+    h1 {
+        font-size: 30px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
+
+    label {
+        font-size: 15px;
+    }
+
+    input[type="number"] {
+        font-size: 16px;
+        height: 36px;
+    }
+
+    .unit {
+        font-size: 14px;
+        height: 36px;
+    }
+
+    output {
+        font-size: 15px;
+    }
+    /* スマートフォン向けスタイル */
+@media (max-width: 600px) {
+    .output-group.inline .output-label {
+        font-size: 15px;
+    }
+
+    .output-group.inline output {
+        font-size: 20px;
+    }
+
+    .output-group.inline .unit.no-frame {
+        font-size: 15px;
+    }
+}
+    /* スマートフォン向けスタイル */
+    @media (max-width: 600px) {
+        .output-label {
+            font-size: 15px; /* スマートフォンでのフォントサイズ */
+        }
+    }
+
+    .output-group.inline {
+        flex-wrap: nowrap;
+        justify-content: flex-end;
+    }
+
+    .output-group.inline label {
+        font-size: 15px;
+    }
+
+    .output-group.inline .output-wrapper {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .output-group.inline output {
+        font-size: 15px;
+    }
+
+    .output-group.inline .unit.no-frame {
+        font-size: 15px;
+    }
+
+    .output-group.total.inline output {
+        font-size: 15px;
+    }
+
+    .output-group.total.inline {
+        flex-wrap: nowrap;
+    }
+
+    .output-group.total.inline .output-label {
+        font-size: 16px;
+    }
+
+    .output-group.total.inline output {
+        font-size: 15px;
+    }
+
+    .output-group.total.inline .unit.no-frame {
+        font-size: 16px;
+    }
+}
+
+    
