@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>５分でできる！老後問題の現状を把握しよう！</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+   
+    <form id="retirement-calculator">
+        <div class="card">
+            <h2>基本情報</h2>
+            <div class="input-group">
+                <label for="current-age">現在の年齢：</label>
+                <div class="input-wrapper">
+                    <input type="number" id="current-age" min="0" step="1" required>
+                    <span class="unit">歳</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="retirement-age">老後が始まる年齢＝退職年齢：</label>
+                <div class="input-wrapper">
+                    <input type="number" id="retirement-age" min="0" step="1" required>
+                    <span class="unit">歳</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="life-expectancy">何歳まで生きるか：</label>
+                <div class="input-wrapper">
+                    <input type="number" id="life-expectancy" min="0" step="1" required>
+                    <span class="unit">歳</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="total-expenses">老後の支出合計：</label>
+                <div class="input-wrapper">
+                    <input type="number" id="total-expenses" min="0" step="1" required>
+                    <span class="unit">万円</span>
+                </div>
+            </div>
+            <div class="output-group inline">
+                <label>老後までに何年間(現役期間)：</label>
+                <div class="output-wrapper">
+                    <output id="working-years"></output>
+                    <span class="unit">年間</span>
+                </div>
+            </div>
+            <div class="output-group inline">
+                <label>老後の期間：</label>
+                <div class="output-wrapper">
+                    <output id="retirement-years"></output>
+                    <span class="unit">年間</span>
+                </div>
+            </div>
+            <div class="output-group inline">
+                <label>老後の月間支出平均：</label>
+                <div class="output-wrapper">
+                    <output id="monthly-expenses"></output>
+                    <span class="unit">万円/月</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>老後支出に対して、十分な資金を準備できそうか、現状をチェック！</h2>
+            <div class="input-group">
+                <label for="risk-tolerance">どの程度積極的に運用しますか(リスク許容度)：</label>
+                <div class="input-wrapper">
+                    <select id="risk-tolerance" required>
+                        <option value="low">安定(リスク小)</option>
+                        <option value="medium">バランス(リスク中)</option>
+                        <option value="high">積極(リスク大)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <h3>①貯金を投資に回す</h3>
+            <p>現在の資産合計のうち投資に回す事を決めていれば配分を入力</p>
+            <div class="input-group">
+                <label for="current-assets">現在の資産合計：</label>
+                <div class="input-wrapper">
+                    <input type="number" id="current-assets" min="0" step="1" required>
+                    <span class="unit">万円</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="lump-sum-investment">資産から一括で投資に回す額：</label>
+                <div class="input-wrapper">
+                    <input type="number" id="lump-sum-investment" min="0" step="1" required>
+                    <span class="unit">万円</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="monthly-investment">資産から積立で投資に回す月額：</label>
+                <div class="input-wrapper">
+                    <input type="number" id="monthly-investment" min="0" step="0.1" required>
+                    <span class="unit">万円/月</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="non-invested-assets">投資には回さない＝ずっと銀行に残る額：</label>
+                <div class="input-wrapper">
+                    <input type="number" id="non-invested-assets" readonly>
+                    <span class="unit">万円</span>
+                </div>
+            </div>
+        
+            <h3>②追加の積立投資</h3>
+            <p>貯金からの移動以外に今後の給与から積立をしますか？</p>
+            <div class="input-group">
+                <label for="additional-monthly-investment">給与から積立する月額：</label>
+                <div class="input-wrapper">
+                    <input type="number" id="additional-monthly-investment" min="0" step="0.1" required>
+                    <span class="unit">万円/月</span>
+                </div>
+            </div>
+        
+            <h3>③退職金はいくら？</h3>
+            <p>退職金／確定拠出年金はありますか？</p>
+            <div class="input-group">
+                <label for="retirement-bonus">退職金／確定拠出年金（一括）：</label>
+                <div class="input-wrapper">
+                    <input type="number" id="retirement-bonus" min="0" step="1" required>
+                    <span class="unit">万円</span>
+                </div>
+            </div>
+        
+            <h3>④年金はいくら？</h3>
+            <p>ねんきん定期便で確認しましょう</p>
+            <div class="input-group">
+                <label for="pension">年金の見込額(年額)：</label>
+                <div class="input-wrapper">
+                    <input type="number" id="pension" min="0" step="1" required>
+                    <span class="unit">万円/年</span>
+                </div>
+            </div>
+        
+            <h3>⑤老後に働く？</h3>
+            <p>老後の労働は視野に入れていますか？</p>
+            <div class="input-group">
+                <label for="part-time-income">老後の労働収入（月額）：</label>
+                <div class="input-wrapper">
+                    <input type="number" id="part-time-income" min="0" step="0.1" required>
+                    <span class="unit">万円/月</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="part-time-years">老後の労働期間：</label>
+                <div class="input-wrapper">
+                    <input type="number" id="part-time-years" min="0" step="1" required>
+                    <span class="unit">年間</span>
+                </div>
+            </div>
+        
+            <h3>⑥その他</h3>
+            <p>その他に今後取得する資産はありますか？</p>
+            <div class="input-group">
+                <label for="other-income">その他の収入（相続・贈与など）：</label>
+                <div class="input-wrapper">
+                    <input type="number" id="other-income" min="0" step="1" required>
+                    <span class="unit">万円</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card total-expenses">
+            <h2>結果</h2>
+            <div id="result-message"></div>
+            <div class="output-group total inline">
+                <label>老後資金の過不足：</label>
+                <div class="output-wrapper">
+                    <output id="retirement-fund-balance"></output>
+                    <span class="unit">万円</span>
+                </div>
+            </div>
+            <canvas id="assetChart"></canvas>
+        </div>
+    </form>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('retirement-calculator');
+        const inputs = form.querySelectorAll('input[type="number"], select');
+
+        inputs.forEach(input => {
+            input.addEventListener('input', calculateAll);
+        });
+
+        function calculateAll() {
+            calculateRetirementYears();
+            calculateMonthlyExpenses();
+            calculateNonInvestedAssets();
+            calculateRetirementFundBalance();
+        }
+
+        function calculateRetirementYears() {
+            const currentAge = parseInt(document.getElementById('current-age').value) || 0;
+            const retirementAge = parseInt(document.getElementById('retirement-age').value) || 0;
+            const lifeExpectancy = parseInt(document.getElementById('life-expectancy').value) || 0;
+
+            const workingYears = retirementAge - currentAge;
+            const retirementYears = lifeExpectancy - retirementAge;
+
+            document.getElementById('working-years').textContent = workingYears;
+            document.getElementById('retirement-years').textContent = retirementYears;
+        }
+
+        function calculateMonthlyExpenses() {
+            const totalExpenses = parseFloat(document.getElementById('total-expenses').value) || 0;
+            const retirementYears = parseInt(document.getElementById('retirement-years').textContent) || 0;
+            const monthlyExpenses = (totalExpenses / retirementYears / 12).toFixed(2);
+            document.getElementById('monthly-expenses').textContent = monthlyExpenses;
+        }
+
+        function calculateNonInvestedAssets() {
+            const currentAssets = parseFloat(document.getElementById('current-assets').value) || 0;
+            const lumpSumInvestment = parseFloat(document.getElementById('lump-sum-investment').value) || 0;
+            const monthlyInvestment = parseFloat(document.getElementById('monthly-investment').value) || 0;
+            const workingYears = parseInt(document.getElementById('working-years').textContent) || 0;
+
+            const totalInvestment = lumpSumInvestment + (monthlyInvestment * 12 * workingYears);
+            const nonInvestedAssets = currentAssets - totalInvestment;
+
+            document.getElementById('non-invested-assets').value = nonInvestedAssets.toFixed(0);
+        }
+
+        function calculateRetirementFundBalance() {
+            const riskTolerance = document.getElementById('risk-tolerance').value;
+            const currentAssets = parseFloat(document.getElementById('current-assets').value) || 0;
+            const lumpSumInvestment = parseFloat(document.getElementById('lump-sum-investment').value) || 0;
+            const monthlyInvestment = parseFloat(document.getElementById('monthly-investment').value) || 0;
+            const additionalMonthlyInvestment = parseFloat(document.getElementById('additional-monthly-investment').value) || 0;
+            const retirementBonus = parseFloat(document.getElementById('retirement-bonus').value) || 0;
+            const pension = parseFloat(document.getElementById('pension').value) || 0;
+            const partTimeIncome = parseFloat(document.getElementById('part-time-income').value) || 0;
+            const partTimeYears = parseInt(document.getElementById('part-time-years').value) || 0;
+            const otherIncome = parseFloat(document.getElementById('other-income').value) || 0;
+
+            const workingYears = parseInt(document.getElementById('working-years').textContent) || 0;
+            const retirementYears = parseInt(document.getElementById('retirement-years').textContent) || 0;
+            const totalExpenses = parseFloat(document.getElementById('total-expenses').value) || 0;
+
+            let annualReturnRate;
+            switch (riskTolerance) {
+                case 'low':
+                    annualReturnRate = 0.01;
+                    break;
+                case 'medium':
+                    annualReturnRate = 0.03;
+                    break;
+                case 'high':
+                    annualReturnRate = 0.05;
+                    break;
+                default:
+                    annualReturnRate = 0.01;
+            }
+
+            // 運用資産の計算
+            let investmentAssets = lumpSumInvestment;
+            for (let i = 0; i < workingYears; i++) {
+                investmentAssets *= (1 + annualReturnRate);
+                investmentAssets += (monthlyInvestment + additionalMonthlyInvestment) * 12;
+            }
+
+            // 退職金の運用
+            let retirementBonusGrowth = retirementBonus * Math.pow((1 + annualReturnRate), retirementYears);
+
+            // 年金総額
+            const totalPension = pension * retirementYears;
+
+            // パートタイム収入の総額
+            const totalPartTimeIncome = partTimeIncome * 12 * Math.min(partTimeYears, retirementYears);
+
+            // 非投資資産
+            const nonInvestedAssets = parseFloat(document.getElementById('non-invested-assets').value) || 0;
+
+            // 老後の月間支出平均を計算
+            const monthlyExpenses = totalExpenses / retirementYears / 12;
+
+            // 総収入の計算
+            const totalIncome = investmentAssets + retirementBonusGrowth + totalPension + totalPartTimeIncome + otherIncome + nonInvestedAssets;
+
+            // 資金が足りる月数を計算
+            const monthsCovered = totalIncome / monthlyExpenses;
+
+            // 老後の期間（月数）
+            const totalRetirementMonths = retirementYears * 12;
+
+            // 不足月数を計算
+            const shortageMonths = Math.max(0, totalRetirementMonths - monthsCovered);
+
+            // 老後資金の過不足を計算
+            const retirementFundBalance = -(shortageMonths * monthlyExpenses);
+
+            document.getElementById('retirement-fund-balance').textContent = retirementFundBalance.toFixed(0);
+
+            // 結果メッセージの生成
+            const resultMessage = document.getElementById('result-message');
+            if (retirementFundBalance >= 0) {
+                const surplusYears = Math.floor(monthsCovered / 12) - retirementYears;
+                resultMessage.textContent = `あなたの計画では資産が${parseInt(document.getElementById('life-expectancy').value) + surplusYears}歳まで持ちます。`;
+            } else {
+                const shortageYears = Math.ceil(shortageMonths / 12);
+                const shortageAge = parseInt(document.getElementById('life-expectancy').value) - shortageYears;
+                resultMessage.textContent = `あなたの計画では資産がもつのは${shortageAge}歳までです。${shortageAge + 1}歳まで約${shortageYears}年分(${Math.abs(retirementFundBalance).toFixed(0)}万円)の資金がたりません。何らかの対策が必要です。`;
+            }
+
+            // グラフの更新
+            updateChart(retirementYears, nonInvestedAssets, investmentAssets);
+        }
+
+        function updateChart(retirementYears, initialNonInvestedAssets, initialInvestedAssets) {
+            const ctx = document.getElementById('assetChart').getContext('2d');
+            const retirementAge = parseInt(document.getElementById('retirement-age').value) || 65;
+            const data = [];
+            let currentNonInvestedAssets = initialNonInvestedAssets;
+            let currentInvestedAssets = initialInvestedAssets;
+            const monthlyExpenses = parseFloat(document.getElementById('monthly-expenses').textContent) || 0;
+
+            for (let year = 0; year <= retirementYears; year += 5) {
+                const age = retirementAge + year;
+                data.push({
+                    age: age,
+                    nonInvestedAssets: Math.max(0, currentNonInvestedAssets),
+                    investedAssets: Math.max(0, currentInvestedAssets)
+                });
+
+                // 5年分の支出を差し引く
+                const expenses = monthlyExpenses * 12 * 5;
+                if (currentNonInvestedAssets > expenses) {
+                    currentNonInvestedAssets -= expenses;
+                } else {
+                    const remainingExpenses = expenses - currentNonInvestedAssets;
+                    currentNonInvestedAssets = 0;
+                    currentInvestedAssets -= remainingExpenses;
+                }
+
+                // 投資資産の成長（簡易計算）
+                currentInvestedAssets *= Math.pow(1.03, 5); // 3%の年利で5年間成長
+            }
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.map(d => d.age + '歳'),
+                    datasets: [
+                        {
+                            label: '運用しない資産',
+                            data: data.map(d => d.nonInvestedAssets),
+                            borderColor: 'rgb(255, 99, 132)',
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            tension: 0.1
+                        },
+                        {
+                            label: '運用する資産',
+                            data: data.map(d => d.investedAssets),
+                            borderColor: 'rgb(75, 192, 192)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            tension: 0.1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: '年齢'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: '資産（万円）'
+                            },
+                            ticks: {
+                                callback: function(value, index, values) {
+                                    return value.toLocaleString() + '万円';
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: '老後の資産推移'
+                        }
+                    }
+                }
+            });
+        }
+
+        // 初期計算
+        calculateAll();
+    });
+    </script>
+</body>
+</html>

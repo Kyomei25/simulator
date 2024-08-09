@@ -1,0 +1,267 @@
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    background-color: #ffffff;
+    color: #545454;
+}
+
+h1 {
+    text-align: center;
+    color: #f1b315;
+    font-size: 40px;
+    margin-bottom: 30px;
+}
+
+form {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.card {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: #009bdd;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #009bdd;
+    padding-bottom: 10px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 5px;
+    font-size: 20px;
+    color: #545454;
+}
+
+.input-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+}
+
+input[type="number"], select {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #009bdd;
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+    font-size: 20px;
+    color: #545454;
+    height: 40px;
+    box-sizing: border-box;
+}
+
+select {
+    border-right: 1px solid #009bdd;
+    border-radius: 5px;
+}
+
+.unit {
+    background-color: #e6f7ff;
+    padding: 10px;
+    border: 1px solid #009bdd;
+    border-left: none;
+    border-radius: 0 5px 5px 0;
+    font-size: 16px;
+    color: #545454;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    box-sizing: border-box;
+}
+
+.output-group {
+    background-color: #e6f7ff;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.output-wrapper {
+    justify-content: flex-end;
+}
+
+.output-wrapper .unit {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    height: auto;
+    margin-left: 5px;
+}
+
+output {
+    font-weight: bold;
+    color: #009bdd;
+    font-size: 40px;
+    text-align: right;
+}
+
+.output-group.inline {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
+
+.output-group.inline label {
+    margin-right: 10px;
+    font-size: 20px;
+    color: #545454;
+}
+
+.output-group.inline .output-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.output-group.inline output {
+    font-size: 40px;
+    color: #009bdd;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.output-group.inline .unit {
+    font-size: 20px;
+    color: #545454;
+}
+
+.card.total-expenses {
+    background-color: #e6f7ff;
+    border: 2px solid #009bdd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card.total-expenses h2 {
+    color: #009bdd;
+    margin-bottom: 15px;
+    text-shadow: 
+        -2px -2px 0 #fff,
+        2px -2px 0 #fff,
+        -2px 2px 0 #fff,
+        2px 2px 0 #fff;
+}
+
+.card.total-expenses .output-group.total.inline {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.card.total-expenses .output-group.total.inline label {
+    margin-right: 10px;
+    font-size: 30px;
+    color: #545454;
+    font-weight: bold;
+}
+
+.card.total-expenses .output-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.card.total-expenses output {
+    font-size: 40px;
+    color: #009bdd;
+    font-weight: bold;
+    margin-right: 5px;
+    text-shadow: 
+        -2px -2px 0 #fff,
+        2px -2px 0 #fff,
+        -2px 2px 0 #fff,
+        2px 2px 0 #fff;
+}
+
+.card.total-expenses .unit {
+    font-size: 30px;
+    color: #545454;
+    font-weight: bold;
+}
+
+#result-message {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    .input-group label {
+        font-size: 15px;
+    }
+
+    input[type="number"], .unit, select {
+        height: 36px;
+        font-size: 16px;
+    }
+
+    .input-wrapper .unit {
+        font-size: 14px;
+        padding: 8px 5px;
+    }
+
+    output {
+        font-size: 20px;
+    }
+
+    .output-group.inline label {
+        font-size: 16px;
+    }
+
+    .output-group.inline output {
+        font-size: 24px;
+    }
+
+    .output-group.inline .unit {
+        font-size: 16px;
+    }
+
+    .card.total-expenses .output-group.total.inline label {
+        font-size: 20px;
+    }
+
+    .card.total-expenses output {
+        font-size: 30px;
+    }
+
+    .card.total-expenses .unit {
+        font-size: 20px;
+    }
+
+    #result-message {
+        font-size: 18px;
+    }
+}
