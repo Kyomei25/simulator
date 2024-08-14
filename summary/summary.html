@@ -76,8 +76,8 @@
                 </div>
             </div>
             
-            <h3>①貯金を投資に回す</h3>
-            <p>現在の資産合計のうち投資に回す事を決めていれば配分を入力</p>
+            <h3>①いまある貯蓄からまわす投資額</h3>
+            <p>現在の資産合計のうち投資にまわす配分を決めて入力しましょう！/p>
             <div class="input-group">
                 <label for="current-assets">現在の資産合計：</label>
                 <div class="input-wrapper">
@@ -86,14 +86,14 @@
                 </div>
             </div>
             <div class="input-group">
-                <label for="lump-sum-investment">資産から一括で投資に回す額：</label>
+                <label for="lump-sum-investment">現在の資産合計から一括で投資にまわす額：</label>
                 <div class="input-wrapper">
                     <input type="number" id="lump-sum-investment" min="0" step="1" required>
                     <span class="unit">万円</span>
                 </div>
             </div>
             <div class="input-group">
-                <label for="monthly-investment">資産から積立で投資に回す月額：</label>
+                <label for="monthly-investment">上記の一括投資額とは別に、現在の資産合計から積立で投資にまわす月額：</label>
                 <div class="input-wrapper">
                     <input type="number" id="monthly-investment" min="0" step="0.1" required>
                     <span class="unit">万円/月</span>
@@ -101,7 +101,7 @@
             </div>
             
             <div class="output-group inline">
-                <label for="non-invested-assets">投資には回さない＝ずっと銀行に残る額：</label>
+                <label for="non-invested-assets">投資にまわさず銀行に残しておく額：</label>
                 <div class="output-wrapper">
                     <output id="non-invested-assets"></output>
                     <span class="unit">万円</span>
@@ -124,10 +124,10 @@
                 }
             </style>
 
-            <h3>②追加の積立投資</h3>
-            <p>貯金からの移動以外に今後の給与から積立をしますか？</p>
+            <h3>②現役時代（定年退職を迎えるまで）の労働収入からまわす投資額</h3>
+            <p>「①いまある貯蓄からまわす投資額」とは別に、現役時代の収入から積立を実施する場合、入力しましょう！</p>
             <div class="input-group">
-                <label for="additional-monthly-investment">給与から積立する月額：</label>
+                <label for="additional-monthly-investment">現役時代（定年退職を迎えるまで）の収入から積立する月額：</label>
                 <div class="input-wrapper">
                     <input type="number" id="additional-monthly-investment" min="0" step="0.1" required>
                     <span class="unit">万円/月</span>
@@ -152,8 +152,8 @@
             </style>
         
         
-            <h3>③退職金はいくら？</h3>
-            <p>退職金／確定拠出年金はありますか？</p>
+            <h3>③退職金</h3>
+            <p>退職金／確定拠出年金があれば入力しましょう！</p>
             <div class="input-group">
                 <label for="retirement-bonus">退職金／確定拠出年金（一括）：</label>
                 <div class="input-wrapper">
@@ -178,10 +178,10 @@
                 }
             </style>
         
-            <h3>④年金はいくら？</h3>
-            <p>ねんきん定期便で確認しましょう</p>
+            <h3>④年金</h3>
+            <p>ねんきん定期便で確認して、受給予定の年金額を入力しましょう！</p>
             <div class="input-group">
-                <label for="pension">年金の見込額(年額)：</label>
+                <label for="pension">年金の見込額（年額）：</label>
                 <div class="input-wrapper">
                     <input type="number" id="pension" min="0" step="1" required>
                     <span class="unit">万円/年</span>
@@ -205,8 +205,8 @@
             </style>
 
             
-            <h3>⑤老後に働く？</h3>
-            <p>老後の労働は視野に入れていますか？</p>
+            <h3>⑤定年退職後（老後）の労働収入</h3>
+            <p>老後の労働収入の予定する場合、入力しましょう！</p>
             <div class="input-group">
                 <label for="part-time-income">老後の労働収入（月額）：</label>
                 <div class="input-wrapper">
@@ -239,7 +239,7 @@
             </style>
         
             <h3>⑥その他</h3>
-            <p>その他に今後取得する資産はありますか？</p>
+            <p>その他に今後取得する資産がある場合、入力しましょう！</p>
             <div class="input-group">
                 <label for="other-income">その他の収入（相続・贈与など）：</label>
                 <div class="input-wrapper">
