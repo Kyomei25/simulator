@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function calculateAll() {
+        console.log('Calculating all values...');
         calculateRetirementYears();
         calculateMonthlyExpenses();
         calculateNonInvestedAssets();
@@ -224,17 +225,26 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateSimulationAndChart() {
+        console.log('Updating simulation and chart...');
         const simulationResults = calculateRetirementSimulation();
+        console.log('Simulation results:', simulationResults);
         const chartData = generateChartData(simulationResults);
+        console.log('Chart data:', chartData);
         createRetirementAssetChart(chartData);
     }
 
     function createRetirementAssetChart(data) {
-        const ctx = document.getElementById('retirementAssetChart').getContext('2d');
+        console.log('Creating retirement asset chart...');
+        const ctx = document.getElementById('retirementAssetChart');
+        if (!ctx) {
+            console.error('Canvas element not found!');
+            return;
+        }
 
         console.log('Creating chart with data:', data);
 
         if (retirementAssetChart) {
+            console.log('Destroying existing chart...');
             retirementAssetChart.destroy();
         }
 
@@ -261,7 +271,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             callback: function(value) {
                                 return value.toLocaleString() + '万円';
                             }
-                        }
+                        },
+                        max: 10000
                     }
                 },
                 plugins: {
@@ -292,8 +303,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
+        console.log('Chart created successfully');
     }
 
     // 初期計算を実行
+    console.log('Initializing calculations...');
     calculateAll();
 });
