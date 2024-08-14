@@ -36,6 +36,18 @@ h2 {
     padding-bottom: 10px;
 }
 
+p {
+    font-size: 20px;
+    margin-top: 0; /* h3直後のpの上のマージンを0にする */
+    margin-bottom: 15px; /* pの下のマージンを設定 */
+    line-height: 1.5; /* 読みやすさのために行間を設定 */
+}
+
+/* h3直後のpに特別なスタイルが必要な場合 */
+h3 + p {
+    margin-top: 0; /* この設定は上記のpのスタイルと重複しますが、念のため残しておきます */
+}
+
 .input-group {
     display: flex;
     flex-direction: column;
@@ -247,6 +259,81 @@ output {
 
     .output-group.inline .unit {
         font-size: 16px;
+    }
+
+    .output-group.inline {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        background-color: #e6f7ff;
+        border-radius: 5px;
+        padding: 10px;
+    }
+    
+    .output-group.inline label {
+        margin-right: 10px;
+        font-size: 20px;
+        color: #545454;
+    }
+    
+    .output-group.inline .output-wrapper {
+        display: flex;
+        align-items: center;
+    }
+    
+    .output-group.inline output {
+        font-size: 40px;
+        color: #009bdd;
+        font-weight: bold;
+        margin-right: 5px;
+    }
+    
+    .output-group.inline .unit {
+        font-size: 20px;
+        color: #545454;
+        background-color: transparent;
+        border: none;
+        padding: 0;
+        height: auto;
+    }
+
+    .section-divider {
+        margin: 40px 0;  /* マージンを減らしました */
+        border: none;
+        height: 1px;  /* 線の太さを元に戻しました */
+        background-color: #009bdd;
+        position: relative;
+    }
+    
+    .section-divider::before {
+        content: '';
+        display: block;
+        width: 10px;  /* 点のサイズを元に戻しました */
+        height: 10px;
+        background-color: #009bdd;
+        border-radius: 50%;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    h3 {
+        color: #009bdd;
+        font-size: 24px;
+        margin-top: 30px;  /* 上のマージンを減らしました */
+        margin-bottom: 15px;  /* 下のマージンを元に戻しました */
+    }
+    
+    /* 前のセクションの最後の要素のマージンを調整 */
+    .output-group.inline:last-of-type {
+        margin-bottom: 30px;  /* 下のマージンを減らしました */
+    }
+    
+    /* 次のセクションの説明文のマージンも調整 */
+    h3 + p {
+        margin-bottom: 20px;  /* 説明文の下のマージンを少し減らしました */
     }
 
     .card.total-expenses .output-group.total.inline label {

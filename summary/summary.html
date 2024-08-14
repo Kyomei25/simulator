@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="input-group">
-                <label for="life-expectancy">何歳まで生きるか：</label>
+                <label for="life-expectancy">何歳まで老後を送りたいか：</label>
                 <div class="input-wrapper">
                     <input type="number" id="life-expectancy" min="0" step="1" required>
                     <span class="unit">歳</span>
@@ -64,7 +64,7 @@
         </div>
 
         <div class="card">
-            <h2>老後支出に対して、十分な資金を準備できそうか、現状をチェック！</h2>
+            <h2>老後の資金計画</h2>
             <div class="input-group">
                 <label for="risk-tolerance">どの程度積極的に運用しますか(リスク許容度)：</label>
                 <div class="input-wrapper">
@@ -99,14 +99,31 @@
                     <span class="unit">万円/月</span>
                 </div>
             </div>
-            <div class="input-group">
+            
+            <div class="output-group inline">
                 <label for="non-invested-assets">投資には回さない＝ずっと銀行に残る額：</label>
-                <div class="input-wrapper">
-                    <input type="number" id="non-invested-assets" readonly>
+                <div class="output-wrapper">
+                    <output id="non-invested-assets"></output>
                     <span class="unit">万円</span>
                 </div>
             </div>
-        
+            
+            <hr class="section-divider" style="margin: 40px 0; height: 1px; background-color: #009bdd; position: relative;">
+            <style>
+                .section-divider::before {
+                    content: '';
+                    display: block;
+                    width: 10px;
+                    height: 10px;
+                    background-color: #009bdd;
+                    border-radius: 50%;
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            </style>
+
             <h3>②追加の積立投資</h3>
             <p>貯金からの移動以外に今後の給与から積立をしますか？</p>
             <div class="input-group">
@@ -116,6 +133,24 @@
                     <span class="unit">万円/月</span>
                 </div>
             </div>
+            
+
+            <hr class="section-divider" style="margin: 40px 0; height: 1px; background-color: #009bdd; position: relative;">
+            <style>
+                .section-divider::before {
+                    content: '';
+                    display: block;
+                    width: 10px;
+                    height: 10px;
+                    background-color: #009bdd;
+                    border-radius: 50%;
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            </style>
+        
         
             <h3>③退職金はいくら？</h3>
             <p>退職金／確定拠出年金はありますか？</p>
@@ -126,6 +161,22 @@
                     <span class="unit">万円</span>
                 </div>
             </div>
+
+            <hr class="section-divider" style="margin: 40px 0; height: 1px; background-color: #009bdd; position: relative;">
+            <style>
+                .section-divider::before {
+                    content: '';
+                    display: block;
+                    width: 10px;
+                    height: 10px;
+                    background-color: #009bdd;
+                    border-radius: 50%;
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            </style>
         
             <h3>④年金はいくら？</h3>
             <p>ねんきん定期便で確認しましょう</p>
@@ -136,7 +187,24 @@
                     <span class="unit">万円/年</span>
                 </div>
             </div>
-        
+
+            <hr class="section-divider" style="margin: 40px 0; height: 1px; background-color: #009bdd; position: relative;">
+            <style>
+                .section-divider::before {
+                    content: '';
+                    display: block;
+                    width: 10px;
+                    height: 10px;
+                    background-color: #009bdd;
+                    border-radius: 50%;
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            </style>
+
+            
             <h3>⑤老後に働く？</h3>
             <p>老後の労働は視野に入れていますか？</p>
             <div class="input-group">
@@ -153,6 +221,22 @@
                     <span class="unit">年間</span>
                 </div>
             </div>
+
+            <hr class="section-divider" style="margin: 40px 0; height: 1px; background-color: #009bdd; position: relative;">
+            <style>
+                .section-divider::before {
+                    content: '';
+                    display: block;
+                    width: 10px;
+                    height: 10px;
+                    background-color: #009bdd;
+                    border-radius: 50%;
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            </style>
         
             <h3>⑥その他</h3>
             <p>その他に今後取得する資産はありますか？</p>
@@ -175,8 +259,9 @@
                     <span class="unit">万円</span>
                 </div>
             </div>
-            <canvas id="assetChart"></canvas>
+            <canvas id="retirementAssetChart"></canvas>
         </div>
+        
     </form>
 
     <script src="script.js"></script>

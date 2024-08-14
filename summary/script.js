@@ -11,6 +11,52 @@ document.addEventListener('DOMContentLoaded', function() {
         calculateMonthlyExpenses();
         calculateNonInvestedAssets();
         calculateRetirementFundBalance();
+        updateSimulationAndChart();
+    }
+
+    // JSONデータを読み込んで、5年ごとの推移を計算
+    fetch('../date/step3_data.json')
+        .then(response => response.json())
+        .then(data => {
+            const simulationResults = calculate5YearProjection(data);
+            const chartData = generateChartData(simulationResults);
+            createRetirementAssetChart(chartData);
+        })
+        .catch(error => console.error('Error loading JSON data:', error));
+
+    function calculate5YearProjection(data) {
+        const projection = [];
+        let currentYear = data[0]["何歳"].split('歳')[0];
+        let aggregatedNonInvested = 0;
+        let aggregatedInvested = 0;
+
+        data.forEach((entry, index) => {
+            const year = entry["何歳"].split('歳')[0];
+            if (year !== currentYear || index === data.length - 1) {
+                // 5年ごとにデータを集約
+                if (index % 60 === 0 || index === data.length - 1) {  // 60ヶ月 = 5年
+                    projection.push({
+                        age: `${currentYear}歳`,
+                        nonInvestedAssets: aggregatedNonInvested,
+                        investedAssets: aggregatedInvested
+                    });
+                    currentYear = year;
+                    aggregatedNonInvested = 0;
+                    aggregatedInvested = 0;
+                }
+            }
+            aggregatedNonInvested += entry["運用しないお金"];
+            aggregatedInvested += entry["運用するお金"];
+        });
+
+        // 最後にデータを追加する
+        projection.push({
+            age: `${currentYear}歳`,
+            nonInvestedAssets: aggregatedNonInvested,
+            investedAssets: aggregatedInvested
+        });
+
+        return projection;
     }
 
     function calculateRetirementYears() {
@@ -37,12 +83,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const lumpSumInvestment = parseFloat(document.getElementById('lump-sum-investment').value) || 0;
         const monthlyInvestment = parseFloat(document.getElementById('monthly-investment').value) || 0;
         const workingYears = parseInt(document.getElementById('working-years').textContent) || 0;
-
+    
         const totalInvestment = lumpSumInvestment + (monthlyInvestment * 12 * workingYears);
         const nonInvestedAssets = currentAssets - totalInvestment;
-
-        document.getElementById('non-invested-assets').value = nonInvestedAssets.toFixed(0);
+    
+        document.getElementById('non-invested-assets').textContent = nonInvestedAssets.toFixed(0);
     }
+    
 
     function calculateRetirementFundBalance() {
         const riskTolerance = document.getElementById('risk-tolerance').value;
@@ -92,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const totalPartTimeIncome = partTimeIncome * 12 * Math.min(partTimeYears, retirementYears);
 
         // 非投資資産
-        const nonInvestedAssets = parseFloat(document.getElementById('non-invested-assets').value) || 0;
+        const nonInvestedAssets = parseFloat(document.getElementById('non-invested-assets').textContent) || 0;
 
         // 老後の月間支出平均を計算
         const monthlyExpenses = totalExpenses / retirementYears / 12;
@@ -122,48 +169,105 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             const shortageYears = Math.ceil(shortageMonths / 12);
             const shortageAge = parseInt(document.getElementById('life-expectancy').value) - shortageYears;
-            resultMessage.textContent = `あなたの計画では資産がもつのは${shortageAge}歳までです。${shortageAge + 1}歳まで約${shortageYears}年分(${Math.abs(retirementFundBalance).toFixed(0)}万円)の資金がたりません。何らかの対策が必要です。`;
+            resultMessage.textContent = `あなたの計画では資産がもつのは${shortageAge + 1}歳までです。${shortageAge + 1}歳まで約${shortageYears + 1}年分(${Math.abs(retirementFundBalance).toFixed(0)}万円)の資金が足りません。何らかの対策が必要です。`;
         }
 
-        // グラフの作成と描画
-        createAndDrawChart(parseInt(document.getElementById('retirement-age').value), parseInt(document.getElementById('life-expectancy').value), investmentAssets, nonInvestedAssets, annualReturnRate);
+        return {
+            investmentAssets,
+            nonInvestedAssets,
+            retirementAge: parseInt(document.getElementById('retirement-age').value) || 0,
+            lifeExpectancy: parseInt(document.getElementById('life-expectancy').value) || 0,
+            annualReturnRate
+        };
     }
 
-    function createAndDrawChart(retirementAge, lifeExpectancy, initialInvestmentAssets, initialNonInvestedAssets, annualReturnRate) {
-        const ctx = document.getElementById('assetChart').getContext('2d');
-        const labels = [];
-        const investedData = [];
-        const nonInvestedData = [];
-
-        let currentInvestedAssets = initialInvestmentAssets;
-        let currentNonInvestedAssets = initialNonInvestedAssets;
-
+    function calculateRetirementSimulation() {
+        const {
+            investmentAssets,
+            nonInvestedAssets,
+            retirementAge,
+            lifeExpectancy,
+            annualReturnRate
+        } = calculateRetirementFundBalance();
+    
+        const simulationResults = [];
+        let currentInvestedAssets = investmentAssets;
+        let currentNonInvestedAssets = nonInvestedAssets;
+        const monthlyExpenses = parseFloat(document.getElementById('monthly-expenses').textContent) || 0;
+    
+        // 5年ごとの推移予測を計算
         for (let age = retirementAge; age <= lifeExpectancy; age += 5) {
-            labels.push(age);
-            investedData.push(currentInvestedAssets);
-            nonInvestedData.push(currentNonInvestedAssets);
-
-            // 5年間の資産成長を計算
-            currentInvestedAssets *= Math.pow(1 + annualReturnRate, 5);
-            // 非運用資産は変化なし
+            // 現在の年齢での資産状況を記録
+            simulationResults.push({
+                age: age,
+                investedAssets: Math.max(0, currentInvestedAssets),
+                nonInvestedAssets: Math.max(0, currentNonInvestedAssets)
+            });
+    
+            // 次の5年分の資産を計算
+            for (let i = 0; i < 5; i++) {
+                const yearlyExpenses = monthlyExpenses * 12;
+                if (currentNonInvestedAssets >= yearlyExpenses) {
+                    currentNonInvestedAssets -= yearlyExpenses;
+                } else {
+                    const remainingExpenses = yearlyExpenses - currentNonInvestedAssets;
+                    currentNonInvestedAssets = 0;
+                    currentInvestedAssets -= remainingExpenses;
+                }
+    
+                if (currentInvestedAssets > 0) {
+                    // 資産運用による増加分を計算
+                    currentInvestedAssets *= (1 + annualReturnRate);
+                }
+            }
         }
-
-        new Chart(ctx, {
-            type: 'line',
+    
+        return simulationResults;
+    }
+    
+    function generateChartData(simulationResults) {
+        return {
+            labels: simulationResults.map(result => result.age),
+            investedAssets: simulationResults.map(result => result.investedAssets),
+            nonInvestedAssets: simulationResults.map(result => result.nonInvestedAssets)
+        };
+    }
+    
+    function updateSimulationAndChart() {
+        const simulationResults = calculateRetirementSimulation();
+        const chartData = generateChartData(simulationResults);
+        createRetirementAssetChart(chartData);
+    }
+    
+    // グラフ描画のための関数
+    let retirementAssetChart;
+    
+    function createRetirementAssetChart(data) {
+        const ctx = document.getElementById('retirementAssetChart').getContext('2d');
+        
+        // 既存のグラフインスタンスがあれば破棄
+        if (retirementAssetChart) {
+            retirementAssetChart.destroy();
+        }
+    
+        retirementAssetChart = new Chart(ctx, {
+            type: 'bar',
             data: {
-                labels: labels,
+                labels: data.labels,
                 datasets: [
                     {
-                        label: '運用する資産',
-                        data: investedData,
-                        borderColor: 'rgb(75, 192, 192)',
-                        tension: 0.1
+                        label: '運用する資金の推移',
+                        data: data.investedAssets,
+                        backgroundColor: 'rgba(231, 76, 60, 0.8)',
+                        borderColor: 'rgba(231, 76, 60, 1)',
+                        borderWidth: 1
                     },
                     {
-                        label: '運用しない資産',
-                        data: nonInvestedData,
-                        borderColor: 'rgb(255, 99, 132)',
-                        tension: 0.1
+                        label: '運用しない資金の推移',
+                        data: data.nonInvestedAssets,
+                        backgroundColor: 'rgba(52, 152, 219, 0.8)',
+                        borderColor: 'rgba(52, 152, 219, 1)',
+                        borderWidth: 1
                     }
                 ]
             },
@@ -171,19 +275,50 @@ document.addEventListener('DOMContentLoaded', function() {
                 responsive: true,
                 scales: {
                     x: {
+                        stacked: true,
                         title: {
                             display: true,
                             text: '年齢'
                         }
                     },
                     y: {
+                        stacked: true,
                         title: {
                             display: true,
-                            text: '資産（万円）'
+                            text: '資産額（万円）'
                         },
                         ticks: {
-                            callback: function(value, index, values) {
+                            stepSize: 2500,
+                            callback: function(value) {
                                 return value.toLocaleString() + '万円';
+                            }
+                        },
+                        min: 0,
+                        max: 10000
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '老後の5年ごとの資産推移予測',
+                        font: {
+                            size: 18
+                        }
+                    },
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += context.parsed.y.toLocaleString() + '万円';
+                                }
+                                return label;
                             }
                         }
                     }
@@ -195,3 +330,4 @@ document.addEventListener('DOMContentLoaded', function() {
     // 初期計算
     calculateAll();
 });
+
