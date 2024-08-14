@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('retirement-calculator');
     const inputs = form.querySelectorAll('input[type="number"], select');
+    let retirementAssetChart;
 
     inputs.forEach(input => {
         input.addEventListener('input', calculateAll);
@@ -12,51 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
         calculateNonInvestedAssets();
         calculateRetirementFundBalance();
         updateSimulationAndChart();
-    }
-
-    // JSONデータを読み込んで、5年ごとの推移を計算
-    fetch('../date/step3_data.json')
-        .then(response => response.json())
-        .then(data => {
-            const simulationResults = calculate5YearProjection(data);
-            const chartData = generateChartData(simulationResults);
-            createRetirementAssetChart(chartData);
-        })
-        .catch(error => console.error('Error loading JSON data:', error));
-
-    function calculate5YearProjection(data) {
-        const projection = [];
-        let currentYear = data[0]["何歳"].split('歳')[0];
-        let aggregatedNonInvested = 0;
-        let aggregatedInvested = 0;
-
-        data.forEach((entry, index) => {
-            const year = entry["何歳"].split('歳')[0];
-            if (year !== currentYear || index === data.length - 1) {
-                // 5年ごとにデータを集約
-                if (index % 60 === 0 || index === data.length - 1) {  // 60ヶ月 = 5年
-                    projection.push({
-                        age: `${currentYear}歳`,
-                        nonInvestedAssets: aggregatedNonInvested,
-                        investedAssets: aggregatedInvested
-                    });
-                    currentYear = year;
-                    aggregatedNonInvested = 0;
-                    aggregatedInvested = 0;
-                }
-            }
-            aggregatedNonInvested += entry["運用しないお金"];
-            aggregatedInvested += entry["運用するお金"];
-        });
-
-        // 最後にデータを追加する
-        projection.push({
-            age: `${currentYear}歳`,
-            nonInvestedAssets: aggregatedNonInvested,
-            investedAssets: aggregatedInvested
-        });
-
-        return projection;
     }
 
     function calculateRetirementYears() {
@@ -83,13 +39,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const lumpSumInvestment = parseFloat(document.getElementById('lump-sum-investment').value) || 0;
         const monthlyInvestment = parseFloat(document.getElementById('monthly-investment').value) || 0;
         const workingYears = parseInt(document.getElementById('working-years').textContent) || 0;
-    
+
         const totalInvestment = lumpSumInvestment + (monthlyInvestment * 12 * workingYears);
         const nonInvestedAssets = currentAssets - totalInvestment;
-    
+
         document.getElementById('non-invested-assets').textContent = nonInvestedAssets.toFixed(0);
     }
-    
 
     function calculateRetirementFundBalance() {
         const riskTolerance = document.getElementById('risk-tolerance').value;
@@ -109,59 +64,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
         let annualReturnRate;
         switch (riskTolerance) {
-            case 'low':
-                annualReturnRate = 0.01;
-                break;
-            case 'medium':
-                annualReturnRate = 0.03;
-                break;
-            case 'high':
-                annualReturnRate = 0.05;
-                break;
-            default:
-                annualReturnRate = 0.01;
+            case 'low': annualReturnRate = 0.01; break;
+            case 'medium': annualReturnRate = 0.03; break;
+            case 'high': annualReturnRate = 0.05; break;
+            default: annualReturnRate = 0.01;
         }
 
-        // 運用資産の計算
         let investmentAssets = lumpSumInvestment;
         for (let i = 0; i < workingYears; i++) {
             investmentAssets *= (1 + annualReturnRate);
             investmentAssets += (monthlyInvestment + additionalMonthlyInvestment) * 12;
         }
 
-        // 退職金の運用
         let retirementBonusGrowth = retirementBonus * Math.pow((1 + annualReturnRate), retirementYears);
-
-        // 年金総額
         const totalPension = pension * retirementYears;
-
-        // パートタイム収入の総額
         const totalPartTimeIncome = partTimeIncome * 12 * Math.min(partTimeYears, retirementYears);
-
-        // 非投資資産
         const nonInvestedAssets = parseFloat(document.getElementById('non-invested-assets').textContent) || 0;
-
-        // 老後の月間支出平均を計算
         const monthlyExpenses = totalExpenses / retirementYears / 12;
 
-        // 総収入の計算
         const totalIncome = investmentAssets + retirementBonusGrowth + totalPension + totalPartTimeIncome + otherIncome + nonInvestedAssets;
-
-        // 資金が足りる月数を計算
         const monthsCovered = totalIncome / monthlyExpenses;
-
-        // 老後の期間（月数）
         const totalRetirementMonths = retirementYears * 12;
-
-        // 不足月数を計算
         const shortageMonths = Math.max(0, totalRetirementMonths - monthsCovered);
-
-        // 老後資金の過不足を計算
         const retirementFundBalance = -(shortageMonths * monthlyExpenses);
 
         document.getElementById('retirement-fund-balance').textContent = retirementFundBalance.toFixed(0);
 
-        // 結果メッセージの生成
         const resultMessage = document.getElementById('result-message');
         if (retirementFundBalance >= 0) {
             const surplusYears = Math.floor(monthsCovered / 12) - retirementYears;
@@ -177,100 +105,142 @@ document.addEventListener('DOMContentLoaded', function() {
             nonInvestedAssets,
             retirementAge: parseInt(document.getElementById('retirement-age').value) || 0,
             lifeExpectancy: parseInt(document.getElementById('life-expectancy').value) || 0,
-            annualReturnRate
+            annualReturnRate,
+            monthlyExpenses
         };
     }
 
     function calculateRetirementSimulation() {
-        const {
-            investmentAssets,
-            nonInvestedAssets,
-            retirementAge,
-            lifeExpectancy,
-            annualReturnRate
-        } = calculateRetirementFundBalance();
-    
-        const simulationResults = [];
-        let currentInvestedAssets = investmentAssets;
-        let currentNonInvestedAssets = nonInvestedAssets;
+        const currentAge = parseInt(document.getElementById('current-age').value) || 0;
+        const retirementAge = parseInt(document.getElementById('retirement-age').value) || 0;
+        const lifeExpectancy = parseInt(document.getElementById('life-expectancy').value) || 0;
+        const currentAssets = parseFloat(document.getElementById('current-assets').value) || 0;
+        const lumpSumInvestment = parseFloat(document.getElementById('lump-sum-investment').value) || 0;
+        const monthlyInvestmentFromAssets = parseFloat(document.getElementById('monthly-investment').value) || 0;
+        const additionalMonthlyInvestment = parseFloat(document.getElementById('additional-monthly-investment').value) || 0;
+        const retirementBonus = parseFloat(document.getElementById('retirement-bonus').value) || 0;
+        const pension = parseFloat(document.getElementById('pension').value) || 0;
+        const partTimeIncome = parseFloat(document.getElementById('part-time-income').value) || 0;
+        const partTimeYears = parseInt(document.getElementById('part-time-years').value) || 0;
+        const otherIncome = parseFloat(document.getElementById('other-income').value) || 0;
         const monthlyExpenses = parseFloat(document.getElementById('monthly-expenses').textContent) || 0;
-    
-        // 5年ごとの推移予測を計算
-        for (let age = retirementAge; age <= lifeExpectancy; age += 5) {
-            // 現在の年齢での資産状況を記録
-            simulationResults.push({
-                age: age,
-                investedAssets: Math.max(0, currentInvestedAssets),
-                nonInvestedAssets: Math.max(0, currentNonInvestedAssets)
-            });
-    
-            // 次の5年分の資産を計算
-            for (let i = 0; i < 5; i++) {
-                const yearlyExpenses = monthlyExpenses * 12;
-                if (currentNonInvestedAssets >= yearlyExpenses) {
-                    currentNonInvestedAssets -= yearlyExpenses;
+
+        const riskTolerance = document.getElementById('risk-tolerance').value;
+        let annualReturnRate;
+        switch (riskTolerance) {
+            case 'low': annualReturnRate = 0.01; break;
+            case 'medium': annualReturnRate = 0.03; break;
+            case 'high': annualReturnRate = 0.05; break;
+            default: annualReturnRate = 0.01;
+        }
+
+        // 運用しない資産の初期値計算
+        let nonInvestedAssets = currentAssets - lumpSumInvestment - (monthlyInvestmentFromAssets * 12 * (retirementAge - currentAge));
+        nonInvestedAssets += otherIncome; // その他の収入を加算
+
+        // 運用する資産の初期値計算
+        let investedAssets = lumpSumInvestment;
+        for (let age = currentAge; age < retirementAge; age++) {
+            investedAssets *= (1 + annualReturnRate);
+            investedAssets += (monthlyInvestmentFromAssets + additionalMonthlyInvestment) * 12;
+        }
+        investedAssets += retirementBonus; // 退職金を加算
+
+        const simulationResults = [];
+        let currentSimAge = retirementAge;
+
+        while (currentSimAge <= lifeExpectancy) {
+            let currentInvestedAssets = investedAssets;
+            let currentNonInvestedAssets = nonInvestedAssets;
+            const fiveYearExpenses = monthlyExpenses * 60;
+            const fiveYearPension = pension * 5;
+            const fiveYearPartTimeIncome = (currentSimAge - retirementAge < partTimeYears) ? partTimeIncome * 12 * 5 : 0;
+
+            // 運用しない資産から先に使用
+            currentNonInvestedAssets += fiveYearPension + fiveYearPartTimeIncome - fiveYearExpenses;
+
+            if (currentNonInvestedAssets < 0) {
+                // 運用しない資産が不足した場合、運用する資産から補填
+                currentInvestedAssets += currentNonInvestedAssets;
+                currentNonInvestedAssets = 0;
+            }
+
+            if (currentInvestedAssets > 0) {
+                if (currentNonInvestedAssets > 0) {
+                    // 取り崩しをしていない段階の運用する資金の成長
+                    currentInvestedAssets *= Math.pow(1 + annualReturnRate, 5);
                 } else {
-                    const remainingExpenses = yearlyExpenses - currentNonInvestedAssets;
-                    currentNonInvestedAssets = 0;
-                    currentInvestedAssets -= remainingExpenses;
-                }
-    
-                if (currentInvestedAssets > 0) {
-                    // 資産運用による増加分を計算
-                    currentInvestedAssets *= (1 + annualReturnRate);
+                    // 運用する資産を使い始めた後の成長と取り崩し
+                    for (let i = 0; i < 60; i++) {
+                        currentInvestedAssets = currentInvestedAssets * (1 + annualReturnRate / 12) - monthlyExpenses;
+                        if (currentInvestedAssets < 0) {
+                            currentInvestedAssets = 0;
+                            break;
+                        }
+                    }
                 }
             }
+
+            simulationResults.push({
+                age: currentSimAge,
+                investedAssets: Math.max(0, Math.round(currentInvestedAssets)),
+                nonInvestedAssets: Math.max(0, Math.round(currentNonInvestedAssets))
+            });
+
+            investedAssets = currentInvestedAssets;
+            nonInvestedAssets = currentNonInvestedAssets;
+            currentSimAge += 5;
+
+            if (investedAssets <= 0 && nonInvestedAssets <= 0) {
+                break;
+            }
         }
-    
+
+        console.log('Simulation Results:', simulationResults);
         return simulationResults;
     }
-    
+
     function generateChartData(simulationResults) {
+        console.log('Generating Chart Data from:', simulationResults);
         return {
             labels: simulationResults.map(result => result.age),
-            investedAssets: simulationResults.map(result => result.investedAssets),
-            nonInvestedAssets: simulationResults.map(result => result.nonInvestedAssets)
+            datasets: [
+                {
+                    label: '運用する資金の推移',
+                    data: simulationResults.map(result => result.investedAssets),
+                    backgroundColor: 'rgba(231, 76, 60, 0.8)',
+                    borderColor: 'rgba(231, 76, 60, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: '運用しない資金の推移',
+                    data: simulationResults.map(result => result.nonInvestedAssets),
+                    backgroundColor: 'rgba(52, 152, 219, 0.8)',
+                    borderColor: 'rgba(52, 152, 219, 1)',
+                    borderWidth: 1
+                }
+            ]
         };
     }
-    
+
     function updateSimulationAndChart() {
         const simulationResults = calculateRetirementSimulation();
         const chartData = generateChartData(simulationResults);
         createRetirementAssetChart(chartData);
     }
-    
-    // グラフ描画のための関数
-    let retirementAssetChart;
-    
+
     function createRetirementAssetChart(data) {
         const ctx = document.getElementById('retirementAssetChart').getContext('2d');
-        
-        // 既存のグラフインスタンスがあれば破棄
+
+        console.log('Creating chart with data:', data);
+
         if (retirementAssetChart) {
             retirementAssetChart.destroy();
         }
-    
+
         retirementAssetChart = new Chart(ctx, {
             type: 'bar',
-            data: {
-                labels: data.labels,
-                datasets: [
-                    {
-                        label: '運用する資金の推移',
-                        data: data.investedAssets,
-                        backgroundColor: 'rgba(231, 76, 60, 0.8)',
-                        borderColor: 'rgba(231, 76, 60, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: '運用しない資金の推移',
-                        data: data.nonInvestedAssets,
-                        backgroundColor: 'rgba(52, 152, 219, 0.8)',
-                        borderColor: 'rgba(52, 152, 219, 1)',
-                        borderWidth: 1
-                    }
-                ]
-            },
+            data: data,
             options: {
                 responsive: true,
                 scales: {
@@ -288,13 +258,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             text: '資産額（万円）'
                         },
                         ticks: {
-                            stepSize: 2500,
                             callback: function(value) {
                                 return value.toLocaleString() + '万円';
                             }
-                        },
-                        min: 0,
-                        max: 10000
+                        }
                     }
                 },
                 plugins: {
@@ -327,7 +294,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 初期計算
+    // 初期計算を実行
     calculateAll();
 });
-
