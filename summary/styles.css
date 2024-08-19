@@ -246,19 +246,19 @@ output {
     }
 
     output {
-        font-size: 20px;
+        font-size: 15px;
     }
 
     .output-group.inline label {
-        font-size: 16px;
+        font-size: 15px;
     }
 
     .output-group.inline output {
-        font-size: 24px;
+        font-size: 15px;
     }
 
     .output-group.inline .unit {
-        font-size: 16px;
+        font-size: 15px;
     }
 
     .output-group.inline {
@@ -273,7 +273,7 @@ output {
     
     .output-group.inline label {
         margin-right: 10px;
-        font-size: 20px;
+        font-size: 15px;
         color: #545454;
     }
     
@@ -283,14 +283,14 @@ output {
     }
     
     .output-group.inline output {
-        font-size: 40px;
+        font-size: 15px;
         color: #009bdd;
         font-weight: bold;
         margin-right: 5px;
     }
     
     .output-group.inline .unit {
-        font-size: 20px;
+        font-size: 15px;
         color: #545454;
         background-color: transparent;
         border: none;
@@ -321,7 +321,7 @@ output {
     
     h3 {
         color: #009bdd;
-        font-size: 24px;
+        font-size: 20px;
         margin-top: 30px;  /* 上のマージンを減らしました */
         margin-bottom: 15px;  /* 下のマージンを元に戻しました */
     }
