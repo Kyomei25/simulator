@@ -247,18 +247,22 @@ output {
 
     output {
         font-size: 15px;
+        font-weight: bold;
     }
 
     .output-group.inline label {
         font-size: 15px;
+        font-weight: bold;
     }
 
     .output-group.inline output {
         font-size: 15px;
+        font-weight: bold;
     }
 
     .output-group.inline .unit {
         font-size: 15px;
+        font-weight: bold;
     }
 
     .output-group.inline {
@@ -267,6 +271,7 @@ output {
         justify-content: space-between;
         margin-bottom: 15px;
         background-color: #e6f7ff;
+        font-weight: bold;
         border-radius: 5px;
         padding: 10px;
     }
@@ -275,11 +280,13 @@ output {
         margin-right: 10px;
         font-size: 15px;
         color: #545454;
+        font-weight: bold;
     }
     
     .output-group.inline .output-wrapper {
         display: flex;
         align-items: center;
+        font-weight: bold;
     }
     
     .output-group.inline output {
@@ -296,6 +303,7 @@ output {
         border: none;
         padding: 0;
         height: auto;
+        font-weight: bold;
     }
 
     .section-divider {
