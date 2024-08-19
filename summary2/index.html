@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5分で出来る！老後の資金計画</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="main-title">5分で出来る！老後の資金計画</h1>
+        
+        <div class="card">
+            <h2>基本情報</h2>
+            <div class="input-group">
+                <label for="current-age">現在の年齢：</label>
+                <div class="input-wrapper">
+                    <input type="number" id="current-age" min="0">
+                    <span class="unit">歳</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="retirement-age">老後が始まる年齢（退職年齢）：</label>
+                <div class="input-wrapper">
+                    <input type="number" id="retirement-age" min="0">
+                    <span class="unit">歳</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="life-expectancy">何歳まで老後を送りたいか：</label>
+                <div class="input-wrapper">
+                    <input type="number" id="life-expectancy" min="0">
+                    <span class="unit">歳</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="monthly-expenses">老後の支出合計（月額）：</label>
+                <div class="input-wrapper">
+                    <input type="number" id="monthly-expenses" min="0">
+                    <span class="unit">万円</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>老後の資金計画</h2>
+            <div class="input-group">
+                <label for="current-assets">現在の資産合計：</label>
+                <div class="input-wrapper">
+                    <input type="number" id="current-assets" min="0">
+                    <span class="unit">万円</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="investment-amount">現在の資産合計から一括で投資にまわす額：</label>
+                <div class="input-wrapper">
+                    <input type="number" id="investment-amount" min="0">
+                    <span class="unit">万円</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="monthly-investment">現在の資産合計から積立で投資にまわす月額：</label>
+                <div class="input-wrapper">
+                    <input type="number" id="monthly-investment" min="0">
+                    <span class="unit">万円</span>
+                </div>
+            </div>
+            <div class="output-group inline">
+                <span class="output-label">投資にまわさず銀行に残しておく額：</span>
+                <output id="bank-savings"></output>
+                <span class="unit no-frame">万円</span>
+            </div>
+            <div class="input-group">
+                <label for="monthly-savings">現役時代（定年退職を迎えるまで）の収入から積立する月額：</label>
+                <div class="input-wrapper">
+                    <input type="number" id="monthly-savings" min="0">
+                    <span class="unit">万円/月</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="retirement-bonus">退職金：</label>
+                <div class="input-wrapper">
+                    <input type="number" id="retirement-bonus" min="0">
+                    <span class="unit">万円</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="pension">年金の見込額（年額）：</label>
+                <div class="input-wrapper">
+                    <input type="number" id="pension" min="0">
+                    <span class="unit">万円/年</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="retirement-income">老後の労働収入（月額）：</label>
+                <div class="input-wrapper">
+                    <input type="number" id="retirement-income" min="0">
+                    <span class="unit">万円/月</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="retirement-income-period">期間：</label>
+                <div class="input-wrapper">
+                    <input type="number" id="retirement-income-period" min="0">
+                    <span class="unit">年間</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="other-assets">その他に今後取得する資産：</label>
+                <div class="input-wrapper">
+                    <input type="number" id="other-assets" min="0">
+                    <span class="unit">万円</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>結果</h2>
+            <div id="result" class="result"></div>
+        </div>
+
+        <div class="card">
+            <h2>老後資金の推移</h2>
+            <canvas id="retirementChart"></canvas>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
         calculateRetirementFundBalance();
         updateSimulationAndChart();
     }
-
     function calculateRetirementYears() {
         const currentAge = parseInt(document.getElementById('current-age').value) || 0;
         const retirementAge = parseInt(document.getElementById('retirement-age').value) || 0;
@@ -111,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 
-    function calculateRetirementSimulation() {
+    
         const currentAge = parseInt(document.getElementById('current-age').value) || 0;
         const retirementAge = parseInt(document.getElementById('retirement-age').value) || 0;
         const lifeExpectancy = parseInt(document.getElementById('life-expectancy').value) || 0;
@@ -135,17 +134,15 @@ document.addEventListener('DOMContentLoaded', function() {
             default: annualReturnRate = 0.01;
         }
 
-        // 運用しない資産の初期値計算
         let nonInvestedAssets = currentAssets - lumpSumInvestment - (monthlyInvestmentFromAssets * 12 * (retirementAge - currentAge));
-        nonInvestedAssets += otherIncome; // その他の収入を加算
+        nonInvestedAssets += otherIncome;
 
-        // 運用する資産の初期値計算
         let investedAssets = lumpSumInvestment;
         for (let age = currentAge; age < retirementAge; age++) {
             investedAssets *= (1 + annualReturnRate);
             investedAssets += (monthlyInvestmentFromAssets + additionalMonthlyInvestment) * 12;
         }
-        investedAssets += retirementBonus; // 退職金を加算
+        investedAssets += retirementBonus;
 
         const simulationResults = [];
         let currentSimAge = retirementAge;
@@ -157,21 +154,17 @@ document.addEventListener('DOMContentLoaded', function() {
             const fiveYearPension = pension * 5;
             const fiveYearPartTimeIncome = (currentSimAge - retirementAge < partTimeYears) ? partTimeIncome * 12 * 5 : 0;
 
-            // 運用しない資産から先に使用
             currentNonInvestedAssets += fiveYearPension + fiveYearPartTimeIncome - fiveYearExpenses;
 
             if (currentNonInvestedAssets < 0) {
-                // 運用しない資産が不足した場合、運用する資産から補填
                 currentInvestedAssets += currentNonInvestedAssets;
                 currentNonInvestedAssets = 0;
             }
 
             if (currentInvestedAssets > 0) {
                 if (currentNonInvestedAssets > 0) {
-                    // 取り崩しをしていない段階の運用する資金の成長
                     currentInvestedAssets *= Math.pow(1 + annualReturnRate, 5);
                 } else {
-                    // 運用する資産を使い始めた後の成長と取り崩し
                     for (let i = 0; i < 60; i++) {
                         currentInvestedAssets = currentInvestedAssets * (1 + annualReturnRate / 12) - monthlyExpenses;
                         if (currentInvestedAssets < 0) {
@@ -197,24 +190,22 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        console.log('Simulation Results:', simulationResults);
         return simulationResults;
     }
 
     function generateChartData(simulationResults) {
-        console.log('Generating Chart Data from:', simulationResults);
         return {
-            labels: simulationResults.map(result => result.age),
+            labels: simulationResults.map(result => result.age + '歳'),
             datasets: [
                 {
-                    label: '運用する資金の推移',
+                    label: '運用する資金',
                     data: simulationResults.map(result => result.investedAssets),
                     backgroundColor: 'rgba(231, 76, 60, 0.8)',
                     borderColor: 'rgba(231, 76, 60, 1)',
                     borderWidth: 1
                 },
                 {
-                    label: '運用しない資金の推移',
+                    label: '運用しない資金',
                     data: simulationResults.map(result => result.nonInvestedAssets),
                     backgroundColor: 'rgba(52, 152, 219, 0.8)',
                     borderColor: 'rgba(52, 152, 219, 1)',
@@ -225,34 +216,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateSimulationAndChart() {
-        console.log('Updating simulation and chart...');
         const simulationResults = calculateRetirementSimulation();
-        console.log('Simulation results:', simulationResults);
         const chartData = generateChartData(simulationResults);
-        console.log('Chart data:', chartData);
         createRetirementAssetChart(chartData);
     }
 
     function createRetirementAssetChart(data) {
-        console.log('Creating retirement asset chart...');
-        const ctx = document.getElementById('retirementAssetChart');
-        if (!ctx) {
-            console.error('Canvas element not found!');
-            return;
-        }
-
-        console.log('Creating chart with data:', data);
-
+        const ctx = document.getElementById('retirementAssetChart').getContext('2d');
+    
         if (retirementAssetChart) {
-            console.log('Destroying existing chart...');
             retirementAssetChart.destroy();
         }
-
+    
         retirementAssetChart = new Chart(ctx, {
             type: 'bar',
             data: data,
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 scales: {
                     x: {
                         stacked: true,
@@ -271,8 +252,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             callback: function(value) {
                                 return value.toLocaleString() + '万円';
                             }
-                        },
-                        max: 10000
+                        }
                     }
                 },
                 plugins: {
@@ -297,16 +277,21 @@ document.addEventListener('DOMContentLoaded', function() {
                                     label += context.parsed.y.toLocaleString() + '万円';
                                 }
                                 return label;
+                            },
+                            footer: function(tooltipItems) {
+                                let sum = 0;
+                                tooltipItems.forEach(function(tooltipItem) {
+                                    sum += tooltipItem.parsed.y;
+                                });
+                                return '合計: ' + sum.toLocaleString() + '万円';
                             }
                         }
                     }
                 }
             }
         });
-        console.log('Chart created successfully');
     }
 
     // 初期計算を実行
-    console.log('Initializing calculations...');
     calculateAll();
 });

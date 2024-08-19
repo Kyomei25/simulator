@@ -1,0 +1,152 @@
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    background-color: #ffffff;
+    color: #545454;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.main-title {
+    color: #545454;
+    font-weight: bold;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    font-size: 30px;
+    text-align: center;
+    border-bottom: none;
+}
+
+.card {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: #009bdd;
+    font-weight: bold;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #009bdd;
+    padding-bottom: 10px;
+    font-size: 24px;
+}
+
+.input-group, .output-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: inline-block;
+    width: 100%;
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #545454;
+}
+
+.input-wrapper, .output-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+input[type="number"] {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #009bdd;
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+    font-size: 18px;
+    color: #545454;
+    height: 40px;
+    box-sizing: border-box;
+}
+
+.unit {
+    background-color: #e6f7ff;
+    padding: 10px;
+    border: 1px solid #009bdd;
+    border-left: none;
+    border-radius: 0 5px 5px 0;
+    font-size: 18px;
+    color: #545454;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    box-sizing: border-box;
+}
+
+.output-group.inline {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: #e6f7ff;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.output-group.inline .output-label {
+    font-size: 18px;
+    white-space: nowrap;
+}
+
+.output-group.inline output {
+    font-weight: bold;
+    color: #009bdd;
+    font-size: 24px;
+    margin-right: 5px;
+}
+
+.output-group.inline .unit.no-frame {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    font-size: 18px;
+    color: #545454;
+}
+
+.result {
+    font-size: 18px;
+    font-weight: bold;
+    color: #009bdd;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    .main-title {
+        font-size: 24px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    label, input[type="number"], .unit {
+        font-size: 16px;
+    }
+
+    .output-group.inline .output-label,
+    .output-group.inline output,
+    .output-group.inline .unit.no-frame {
+        font-size: 14px;
+    }
+
+    .result {
+        font-size: 16px;
+    }
+}
