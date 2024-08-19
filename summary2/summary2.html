@@ -6,6 +6,38 @@
     <title>5分で出来る！老後の資金計画</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* 既存のスタイル */
+
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            flex: 1;
+        }
+
+        #interest-rate {
+            font-size: 30px;
+            padding: 5px;
+            width: 100px;
+        }
+
+        @media (max-width: 600px) {
+            .input-group {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            #interest-rate {
+                width: 100%;
+                margin-top: 5px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -45,6 +77,14 @@
 
         <div class="card">
             <h2>老後の資金計画</h2>
+            <div class="input-group">
+                <label for="interest-rate">どの程度積極的に運用しますか（リスク許容度）：</label>
+                <select id="interest-rate">
+                    <option value="0.01">1%</option>
+                    <option value="0.03">3%</option>
+                    <option value="0.05" selected>5%</option>
+                </select>
+            </div>
             <div class="input-group">
                 <label for="current-assets">現在の資産合計：</label>
                 <div class="input-wrapper">

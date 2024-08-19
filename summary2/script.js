@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('.container');
-    const inputs = form.querySelectorAll('input[type="number"]');
+    const inputs = form.querySelectorAll('input[type="number"], select');
     const result = document.getElementById('result');
     const bankSavingsOutput = document.getElementById('bank-savings');
     let retirementChart;
@@ -23,10 +23,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const retirementIncome = parseFloat(document.getElementById('retirement-income').value) || 0;
         const retirementIncomePeriod = parseInt(document.getElementById('retirement-income-period').value) || 0;
         const otherAssets = parseFloat(document.getElementById('other-assets').value) || 0;
+        const interestRate = parseFloat(document.getElementById('interest-rate').value) || 0.05;
 
         // 入力値の妥当性チェック
         if (currentAge >= retirementAge || retirementAge >= lifeExpectancy) {
             result.innerHTML = "年齢の入力が正しくありません。現在の年齢 < 退職年齢 < 寿命 となるように設定してください。";
+            clearChart();
             return;
         }
 
@@ -36,12 +38,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const bankSavings = currentAssets - investmentAmount - (monthlyInvestment * 12 * yearsUntilRetirement);
         bankSavingsOutput.textContent = bankSavings.toFixed(1);
 
-        // 投資の成長率（年率5%と仮定）
-        const investmentReturn = 0.05;
-
         // 退職時の総資産を計算
-        let investedFunds = investmentAmount * Math.pow(1 + investmentReturn, yearsUntilRetirement);
-        investedFunds += monthlyInvestment * 12 * ((Math.pow(1 + investmentReturn, yearsUntilRetirement) - 1) / investmentReturn);
+        let investedFunds = investmentAmount * Math.pow(1 + interestRate, yearsUntilRetirement);
+        investedFunds += monthlyInvestment * 12 * ((Math.pow(1 + interestRate, yearsUntilRetirement) - 1) / interestRate);
         let nonInvestedFunds = bankSavings + (monthlySavings * 12 * yearsUntilRetirement) + retirementBonus + otherAssets;
 
         // 年ごとの資金推移を計算
@@ -70,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             // 投資資金の成長（年率）
-            investedFunds *= (1 + investmentReturn);
+            investedFunds *= (1 + interestRate);
 
             // 資金が尽きた年齢を記録
             if (investedFunds + nonInvestedFunds <= 0 && fundsExhaustedAge === null) {
@@ -192,6 +191,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
             });
+        }
+    }
+
+    function clearChart() {
+        if (retirementChart) {
+            retirementChart.destroy();
+            retirementChart = null;
         }
     }
 
