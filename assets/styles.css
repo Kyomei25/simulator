@@ -244,16 +244,19 @@ input[type="number"] {
     @media (max-width: 600px) {
         .output-label {
             font-size: 15px; /* スマートフォンでのフォントサイズ */
+            font-weight: bold;
         }
     }
 
     .output-group.inline {
         flex-wrap: nowrap;
         justify-content: flex-end;
+        font-weight: bold;
     }
 
     .output-group.inline label {
         font-size: 15px;
+        font-weight: bold;
     }
 
     .output-group.inline .output-wrapper {
@@ -263,30 +266,37 @@ input[type="number"] {
 
     .output-group.inline output {
         font-size: 15px;
+        font-weight: bold;
     }
 
     .output-group.inline .unit.no-frame {
         font-size: 15px;
+        font-weight: bold;
     }
 
     .output-group.total.inline output {
         font-size: 15px;
+        font-weight: bold;
     }
 
     .output-group.total.inline {
         flex-wrap: nowrap;
+        font-weight: bold;
     }
 
     .output-group.total.inline .output-label {
         font-size: 16px;
+        font-weight: bold;
     }
 
     .output-group.total.inline output {
         font-size: 15px;
+        font-weight: bold;
     }
 
     .output-group.total.inline .unit.no-frame {
         font-size: 16px;
+        font-weight: bold;
     }
 }
 
