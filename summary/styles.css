@@ -333,6 +333,12 @@ output {
         margin-top: 30px;  /* 上のマージンを減らしました */
         margin-bottom: 15px;  /* 下のマージンを元に戻しました */
     }
+
+    p {
+       color: #545454;
+       font-size: 15px;
+    }
+
     
     /* 前のセクションの最後の要素のマージンを調整 */
     .output-group.inline:last-of-type {
