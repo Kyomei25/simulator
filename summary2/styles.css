@@ -221,17 +221,37 @@ input[type="number"]:focus {
         font-size: 20px;
     }
 
+    h3 {
+        font-size: 15px;
+    }
+
+    p {
+        font-size: 15px; /* フォントサイズを20pxに設定 */
+    }
+    
+
     label, input[type="number"], .unit {
-        font-size: 16px;
+        font-size: 15px;
     }
 
     .output-group.inline .output-label,
     .output-group.inline output,
     .output-group.inline .unit.no-frame {
-        font-size: 14px;
+        font-size: 15px;
+    }
+
+    .output-group p {
+        font-size: 15px;
+        color: #545454;
+    }
+    
+    .output-group span {
+        font-weight: bold;
+        font-size: 20px;
+        color: #009bdd;
     }
 
     .result {
-        font-size: 16px;
+        font-size: 15px;
     }
 }
