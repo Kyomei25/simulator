@@ -360,9 +360,7 @@ label[for="dream-expenses"] {
         font-size: 15px;
     }
 
-    .output-group.inline label[for="monthly-total"] {
-        font-size: 24px; /* スマートフォンでは少し小さくする */
-        font-weight: bold;
-    }
+
+    
 
 }
