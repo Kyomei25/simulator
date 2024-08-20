@@ -31,6 +31,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         const yearsUntilRetirement = retirementAge - currentAge;
+        const retirementYears = lifeExpectancy - retirementAge;
+        const totalExpenses = monthlyExpenses * 12 * retirementYears;
+
+        // 自動計算結果の表示
+        document.getElementById('working-years').textContent = yearsUntilRetirement;
+        document.getElementById('retirement-years').textContent = retirementYears;
+        document.getElementById('total-expenses').textContent = totalExpenses.toFixed(0);
+
         const monthsUntilRetirement = yearsUntilRetirement * 12;
 
         // 退職時の総資産を計算（複利運用）
@@ -104,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (fundsExhaustedAge) {
             const shortage = monthlyExpenses * 12 * (lifeExpectancy - fundsExhaustedAge);
             const shortageYears = lifeExpectancy - fundsExhaustedAge;
-            resultText = `**あなたの計画では資産が${fundsExhaustedAge}歳までしか持ちません。${lifeExpectancy}歳まで約${shortageYears.toFixed(1)}年分${shortage.toFixed(1)}万円の資金が足りません。何らかの対策が必要です。**`;
+            resultText = `あなたの計画では資産が<span style="color: #009bdd; font-size: 30px;">${fundsExhaustedAge}</span>歳までしか持ちません。<br>${lifeExpectancy}歳まで約<span style="color: #009bdd; font-size: 30px;">${shortageYears.toFixed(1)}</span>年分<span style="color: #009bdd; font-size: 30px;">${shortage.toFixed(1)}</span>万円の資金が足りません。<br>何らかの対策が必要です。`;
             adjustedMaxAge = fundsExhaustedAge;
         } else {
             const lastDataPoint = chartData[chartData.length - 1];
@@ -184,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     if (label) {
                                         label += ': ';
                                     }
-                                    if (context.parsed.y !== null) {
+                    if (context.parsed.y !== null) {
                                         label += new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(context.parsed.y * 10000);
                                     }
                                     return label;

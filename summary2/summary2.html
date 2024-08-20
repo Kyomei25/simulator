@@ -41,7 +41,7 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="main-title">5分で出来る！老後の資金計画</h1>
+        
         
         <div class="card">
             <h2>基本情報</h2>
@@ -72,6 +72,11 @@
                     <input type="number" id="monthly-expenses" min="0">
                     <span class="unit">万円</span>
                 </div>
+            </div>
+            <div class="output-group">
+                <p>老後までに何年間(現役期間)：<span id="working-years"></span>年間</p>
+                <p>老後の期間：<span id="retirement-years"></span>年間</p>
+                <p>老後の支出合計：<span id="total-expenses"></span>万円</p>
             </div>
         </div>
 
@@ -109,6 +114,21 @@
                 </div>
             </div>
             
+            <hr class="section-divider" style="margin: 40px 0; height: 1px; background-color: #009bdd; position: relative;">
+            <style>
+                .section-divider::before {
+                    content: '';
+                    display: block;
+                    width: 10px;
+                    height: 10px;
+                    background-color: #009bdd;
+                    border-radius: 50%;
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            </style>
             <h3>②現役時代（定年退職を迎えるまで）の労働収入からまわす投資額</h3>
             <p>「①いまある貯蓄からまわす投資額」とは別に、現役時代の収入から積立を実施する場合、入力しましょう！</p>
 

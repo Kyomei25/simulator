@@ -36,7 +36,7 @@ h2 {
     margin-bottom: 20px;
     border-bottom: 2px solid #009bdd;
     padding-bottom: 10px;
-    font-size: 24px;
+    font-size: 25px;
 }
 
 .input-group, .output-group {
@@ -46,10 +46,46 @@ h2 {
 label {
     display: inline-block;
     width: 100%;
-    font-size: 18px;
+    font-size: 20px;
     margin-bottom: 5px;
     color: #545454;
 }
+
+.input-group {
+    display: flex;
+    flex-direction: column; /* ラベルと入力フィールドを縦に並べる */
+    margin-bottom: 20px; /* グループ間のスペースを追加 */
+}
+
+p {
+    font-size: 20px; /* フォントサイズを20pxに設定 */
+}
+
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px; /* ラベルと入力フィールドの間のスペース */
+}
+
+.input-group select {
+    width: auto; /* プルダウンの幅を自動に設定 */
+    align-self: flex-end; /* プルダウンメニューを右寄せ */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #009bdd; /* 枠線を統一 */
+    border-radius: 5px; /* 角を丸める */
+    background-color: #ffffff; /* 背景色を指定 */
+}
+
+.input-wrapper {
+    display: flex;
+    align-items: center; /* フィールドと単位を中央揃え */
+    width: 100%; /* 横幅いっぱいに広げる */
+    border: 1px solid #009bdd; /* 枠線を追加 */
+    border-radius: 5px; /* 角を丸める */
+    box-sizing: border-box; /* パディングを含めたサイズ計算 */
+}
+
 
 .input-wrapper, .output-wrapper {
     display: flex;
@@ -57,29 +93,38 @@ label {
 }
 
 input[type="number"] {
-    flex-grow: 1;
+    flex-grow: 1; /* 入力フィールドが利用可能なスペースを取る */
     padding: 10px;
-    border: 1px solid #009bdd;
-    border-right: none;
-    border-radius: 5px 0 0 5px;
-    font-size: 18px;
-    color: #545454;
-    height: 40px;
-    box-sizing: border-box;
+    font-size: 20px; /* フォントサイズを20pxに設定 */
+    border: none; /* 枠線を除去 */
+    border-radius: 5px 0 0 5px; /* 左端の角を丸める */
+    width: 100%; /* フィールドを横幅いっぱいに広げる */
+    box-sizing: border-box; /* パディングを含めてサイズを計算 */
+    outline: none; /* フォーカス時のデフォルト枠線を除去 */
+}
+
+input[type="number"]:focus {
+    border: none; /* フォーカス時の枠線を除去 */
 }
 
 .unit {
     background-color: #e6f7ff;
     padding: 10px;
-    border: 1px solid #009bdd;
-    border-left: none;
-    border-radius: 0 5px 5px 0;
-    font-size: 18px;
+    border-left: 1px solid #009bdd;
+    border-radius: 0 5px 5px 0; /* 右端の角を丸める */
+    font-size: 16px;
     color: #545454;
     display: flex;
     align-items: center;
-    height: 40px;
-    box-sizing: border-box;
+    width: 90px; /* 幅を80pxに設定して「万円/年」が1行に収まるように */
+    justify-content: center; /* テキストを中央揃え */
+    box-sizing: border-box; /* パディングを含めたサイズ計算 */
+}
+
+
+/* フォーカス時の枠線を揃える */
+.input-wrapper:focus-within {
+    border: 2px solid #009bdd; /* 選択時の枠線を統一 */
 }
 
 .output-group.inline {
@@ -93,14 +138,14 @@ input[type="number"] {
 }
 
 .output-group.inline .output-label {
-    font-size: 18px;
+    font-size: 20px;
     white-space: nowrap;
 }
 
 .output-group.inline output {
     font-weight: bold;
     color: #009bdd;
-    font-size: 24px;
+    font-size: 25px;
     margin-right: 5px;
 }
 
@@ -108,14 +153,28 @@ input[type="number"] {
     background-color: transparent;
     border: none;
     padding: 0;
-    font-size: 18px;
+    font-size: 20px;
     color: #545454;
 }
 
-.result {
-    font-size: 18px;
+.output-group {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+
+.output-group span {
     font-weight: bold;
+    font-size: 30px;
     color: #009bdd;
+
+}
+
+.result {
+    font-size: 25px;
+    font-weight: bold;
+    color: #545454;
     text-align: center;
 }
 
@@ -129,15 +188,21 @@ input[type="number"] {
 }
 
 .output-group p {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* 右寄せ */
     margin: 5px 0;
-    font-size: 16px;
+    font-size: 20px;
     color: #545454;
 }
 
 .output-group span {
     font-weight: bold;
+    font-size: 40px;
     color: #009bdd;
+    margin-left: 5px;
 }
+
 
 @media (max-width: 600px) {
     body {
