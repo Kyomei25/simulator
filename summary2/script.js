@@ -110,13 +110,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (fundsExhaustedAge) {
             const shortageYears = Math.max(0, lifeExpectancy - fundsExhaustedAge);
             const shortage = Math.max(0, monthlyExpenses * 12 * shortageYears);
-            resultText = `あなたの計画では資産が<span class="calc-value">${fundsExhaustedAge}</span>歳までしか持ちません。`;
             
             if (shortageYears > 0) {
-                resultText += `<br>${lifeExpectancy}歳まで約<span class="calc-value">${shortageYears.toFixed(1)}</span>年分<span class="calc-value">${shortage.toFixed(1)}</span>万円の資金が足りません。`;
+                resultText = `あなたの計画では資産が<span class="calc-value">${fundsExhaustedAge}</span>歳までしか持ちません。<br>${lifeExpectancy}歳まで約<span class="calc-value">${shortageYears.toFixed(1)}</span>年分<span class="calc-value">${shortage.toFixed(1)}</span>万円の資金が足りません。<br>何らかの対策が必要です。`;
+            } else {
+                // 資産が尽きる年齢と寿命が同じ場合、新しいメッセージを表示
+                resultText = `入力通りにいけば<span class="calc-value">${adjustedMaxAge.toFixed(1)}</span>歳まで資金は足りそうですが、年金等が減る可能性も踏まえて金額を変更してみてください。`;
             }
-            
-            resultText += `<br>何らかの対策が必要です。`;
         } else {
             const annualPension = pension;
             const annualExpenses = monthlyExpenses * 12;
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
         return { resultText, adjustedMaxAge };
     }
-
+    
     function updateChart(chartData, maxAge) {
         const ctx = document.getElementById('retirementChart').getContext('2d');
         const labels = chartData.map(data => data.age + '歳');
