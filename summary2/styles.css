@@ -203,6 +203,10 @@ input[type="number"]:focus {
     margin-left: 5px;
 }
 
+.calc-value {
+    color: #009bdd;
+    font-size: 30px;
+}
 
 @media (max-width: 600px) {
     body {
@@ -253,5 +257,9 @@ input[type="number"]:focus {
 
     .result {
         font-size: 15px;
+    }
+
+    .calc-value {
+        font-size: 20px; /* スマホビューでのフォントサイズ */
     }
 }

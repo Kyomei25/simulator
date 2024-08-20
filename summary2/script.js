@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (fundsExhaustedAge) {
             const shortage = monthlyExpenses * 12 * (lifeExpectancy - fundsExhaustedAge);
             const shortageYears = lifeExpectancy - fundsExhaustedAge;
-            resultText = `あなたの計画では資産が<span style="color: #009bdd; font-size: 30px;">${fundsExhaustedAge}</span>歳までしか持ちません。<br>${lifeExpectancy}歳まで約<span style="color: #009bdd; font-size: 30px;">${shortageYears.toFixed(1)}</span>年分<span style="color: #009bdd; font-size: 30px;">${shortage.toFixed(1)}</span>万円の資金が足りません。<br>何らかの対策が必要です。`;
+            resultText = `あなたの計画では資産が<span class="calc-value">${fundsExhaustedAge}</span>歳までしか持ちません。<br>${lifeExpectancy}歳まで約<span class="calc-value">${shortageYears.toFixed(1)}</span>年分<span class="calc-value">${shortage.toFixed(1)}</span>万円の資金が足りません。<br>何らかの対策が必要です。`;
             adjustedMaxAge = fundsExhaustedAge;
         } else {
             const lastDataPoint = chartData[chartData.length - 1];
