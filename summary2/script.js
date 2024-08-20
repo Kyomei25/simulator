@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let investedFunds = totalInvestment;
         let nonInvestedFunds = retirementAssets - totalInvestment;
 
-        while (currentAssetBalance > 0) {
+        while (currentAssetBalance > 0 && currentYear <= 120) {
             // 年金と退職後の収入を加算
             let annualIncome = pension;
             if (currentYear - retirementAge < retirementIncomePeriod) {
@@ -70,9 +70,6 @@ document.addEventListener('DOMContentLoaded', function() {
             let annualBalance = annualIncome - annualExpenses;
 
             // 資産残高の更新（複利運用）
-            currentAssetBalance = currentAssetBalance * (1 + interestRate) + annualBalance;
-
-            // 運用する資産と運用しない資産の更新
             investedFunds *= (1 + interestRate);
             nonInvestedFunds += annualBalance;
 
@@ -82,6 +79,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 nonInvestedFunds = 0;
             }
 
+            currentAssetBalance = investedFunds + nonInvestedFunds;
+
             chartData.push({
                 age: currentYear,
                 investedFunds: Math.max(0, investedFunds),
@@ -90,39 +89,47 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (currentAssetBalance <= 0 && fundsExhaustedAge === null) {
                 fundsExhaustedAge = currentYear;
+                break;
             }
 
             currentYear++;
-            
-            // 120歳を超えたらループを終了
-            if (currentYear > 120) {
-                break;
-            }
         }
 
         // 結果テキストの更新と最大年齢の決定
-        const { resultText, adjustedMaxAge } = updateResultText(chartData, fundsExhaustedAge, lifeExpectancy, monthlyExpenses);
+        const { resultText, adjustedMaxAge } = updateResultText(chartData, fundsExhaustedAge, lifeExpectancy, monthlyExpenses, pension, interestRate);
         result.innerHTML = resultText;
 
         // グラフの更新
         updateChart(chartData, adjustedMaxAge);
     }
 
-    function updateResultText(chartData, fundsExhaustedAge, lifeExpectancy, monthlyExpenses) {
+    function updateResultText(chartData, fundsExhaustedAge, lifeExpectancy, monthlyExpenses, pension, interestRate) {
         let resultText = '';
         let adjustedMaxAge = chartData[chartData.length - 1].age;
-
+    
         if (fundsExhaustedAge) {
-            const shortage = monthlyExpenses * 12 * (lifeExpectancy - fundsExhaustedAge);
-            const shortageYears = lifeExpectancy - fundsExhaustedAge;
-            resultText = `あなたの計画では資産が<span class="calc-value">${fundsExhaustedAge}</span>歳までしか持ちません。<br>${lifeExpectancy}歳まで約<span class="calc-value">${shortageYears.toFixed(1)}</span>年分<span class="calc-value">${shortage.toFixed(1)}</span>万円の資金が足りません。<br>何らかの対策が必要です。`;
+            const shortageYears = Math.max(0, lifeExpectancy - fundsExhaustedAge);
+            const shortage = Math.max(0, monthlyExpenses * 12 * shortageYears);
+            resultText = `あなたの計画では資産が<span class="calc-value">${fundsExhaustedAge}</span>歳までしか持ちません。`;
+            
+            if (shortageYears > 0) {
+                resultText += `<br>${lifeExpectancy}歳まで約<span class="calc-value">${shortageYears.toFixed(1)}</span>年分<span class="calc-value">${shortage.toFixed(1)}</span>万円の資金が足りません。`;
+            }
+            
+            resultText += `<br>何らかの対策が必要です。`;
         } else {
-            const lastDataPoint = chartData[chartData.length - 1];
-            const totalBalance = lastDataPoint.investedFunds + lastDataPoint.nonInvestedFunds;
-            const surplusYears = totalBalance / (monthlyExpenses * 12);
-            resultText = `※あなたは年金だけで暮らせますが、年金減額に備えて見込額を2~3割減らして見積もりましょう。<br>あなたの計画では資産が${adjustedMaxAge.toFixed(1)}歳まで持ちます。`;
+            const annualPension = pension;
+            const annualExpenses = monthlyExpenses * 12;
+            
+            if (annualPension < annualExpenses) {
+                resultText = `入力通りにいけば<span class="calc-value">${adjustedMaxAge.toFixed(1)}</span>歳まで資金は足りそうですが、年金等が減る可能性も踏まえて金額を変更してみてください。`;
+            } else {
+                resultText = `あなたは年金だけで老後期間を過ごせる可能性がありますが、年金減額に備えて見込額を2~3割減らして見積もりましょう。<br>あなたの計画では資産が<span class="calc-value">${adjustedMaxAge.toFixed(1)}</span>歳まで持ちます。`;
+            }
         }
-
+    
+        resultText += `<br>運用利率: <span class="calc-value">${(interestRate * 100).toFixed(1)}%</span>`;
+    
         return { resultText, adjustedMaxAge };
     }
 
