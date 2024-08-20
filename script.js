@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
         calculateMonthlyExpenses();
         calculateYearlyExpenses();
         calculateTotalExpenses();
+        calculateMonthlyRetirementExpenses(); // 新しい関数を追加
     }
 
     function calculateRetirementYears() {
@@ -34,10 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return total + (parseFloat(document.getElementById(id).value) || 0);
         }, 0);
 
-        // すべての'monthly-total'要素に値を設定
-        document.querySelectorAll('#monthly-total').forEach(element => {
-            element.textContent = monthlyExpenses.toFixed(1);
-        });
+        document.getElementById('monthly-total').textContent = monthlyExpenses.toFixed(1);
     }
 
     function calculateYearlyExpenses() {
@@ -58,6 +56,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const totalExpenses = (monthlyTotal * 12 + yearlyTotal) * retirementYears + bufferFund;
         document.getElementById('total-expenses').textContent = totalExpenses.toFixed(1);
+    }
+
+    function calculateMonthlyRetirementExpenses() {
+        const totalExpenses = parseFloat(document.getElementById('total-expenses').textContent) || 0;
+        const retirementYears = parseInt(document.getElementById('retirement-years').textContent) || 1; // 0で割らないように1を使用
+        
+        const monthlyRetirementExpenses = totalExpenses / retirementYears / 12;
+        
+        document.getElementById('monthly-retirement-expenses').textContent = monthlyRetirementExpenses.toFixed(1);
     }
 
     // 初期計算
