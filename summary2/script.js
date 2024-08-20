@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     
-        resultText += `<br>運用利率: <span class="calc-value">${(interestRate * 100).toFixed(1)}%</span>`;
+        
     
         return { resultText, adjustedMaxAge };
     }
