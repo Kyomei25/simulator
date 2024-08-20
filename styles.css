@@ -334,20 +334,20 @@ label[for="dream-expenses"] {
     }
 
     .card.total-expenses .output-group.total.inline label {
-        font-size: 20px;
+        font-size: 15px;
         font-weight: bold;
         margin-right: 5px;
         white-space: nowrap;
     }
 
     .card.total-expenses output {
-        font-size: 30px;
+        font-size: 20px;
         font-weight: bold;
         margin-right: 2px;
     }
 
     .card.total-expenses .unit {
-        font-size: 20px;
+        font-size: 15px;
         font-weight: bold;
         white-space: nowrap;
     }
