@@ -315,7 +315,7 @@ label[for="dream-expenses"] {
     }
 
     .output-group.inline output {
-        font-size: 24px;
+        font-size: 15px;
         font-weight: bold;
         margin-right: 2px;
     }
@@ -358,6 +358,19 @@ label[for="dream-expenses"] {
 
     .label[for="dream-expenses"] {
         font-size: 15px;
+    }
+
+    .output-group.total.inline output {
+        font-size: 20px;
+        color: #009bdd;
+        font-weight: bold;
+        margin-right: 5px;
+    }
+    
+    .output-group.total.inline .unit {
+        font-size: 15px;
+        color: #545454;
+        white-space: nowrap;
     }
 
 
