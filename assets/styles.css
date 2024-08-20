@@ -265,16 +265,11 @@ input[type="number"] {
     }
 
     .output-group.inline output {
-        font-size: 15px;
+        font-size: 20px;
         font-weight: bold;
     }
 
     .output-group.inline .unit.no-frame {
-        font-size: 15px;
-        font-weight: bold;
-    }
-
-    .output-group.total.inline output {
         font-size: 15px;
         font-weight: bold;
     }
@@ -290,7 +285,7 @@ input[type="number"] {
     }
 
     .output-group.total.inline output {
-        font-size: 15px;
+        font-size: 20px;
         font-weight: bold;
     }
 
