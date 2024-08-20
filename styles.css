@@ -118,7 +118,7 @@ output {
 
 .output-group.inline label {
     margin-right: 10px;
-    font-size: 20px;
+    font-size: 20px; /* ここを20pxに変更 */
     color: #545454;
 }
 
@@ -159,6 +159,7 @@ output {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    margin-bottom: 5px;
 }
 
 .card.total-expenses .output-group.total.inline label {
@@ -171,6 +172,10 @@ output {
 .card.total-expenses .output-wrapper {
     display: flex;
     align-items: center;
+}
+
+.card.total-expenses .output-group.total.inline + .output-group.inline {
+    margin-top: 0; /* 上部のマージンを0にして間隔を狭くする */
 }
 
 .card.total-expenses output {
@@ -234,6 +239,11 @@ label[for="dream-expenses"] {
     font-size: 30px;
     color: #545454;
     white-space: nowrap;
+}
+
+.output-group.inline label[for="monthly-total"] + .output-wrapper .unit {
+    font-size: 20px;
+    font-weight: normal;
 }
 
 
@@ -331,7 +341,7 @@ label[for="dream-expenses"] {
     }
 
     .card.total-expenses output {
-        foont-size: 30px;
+        font-size: 30px;
         font-weight: bold;
         margin-right: 2px;
     }
@@ -348,6 +358,11 @@ label[for="dream-expenses"] {
 
     .label[for="dream-expenses"] {
         font-size: 15px;
+    }
+
+    .output-group.inline label[for="monthly-total"] {
+        font-size: 24px; /* スマートフォンでは少し小さくする */
+        font-weight: bold;
     }
 
 }
