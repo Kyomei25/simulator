@@ -373,6 +373,12 @@ label[for="dream-expenses"] {
         white-space: nowrap;
     }
 
+    /* 月額小計の単位のスタイルを更新（スマートフォンビューのみ） */
+    .output-group.inline label[for="monthly-total"] + .output-wrapper .unit {
+        font-size: 15px;
+        font-weight: normal;
+    }
+
 
     
 
