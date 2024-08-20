@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('.container');
     const inputs = form.querySelectorAll('input[type="number"], select');
     const result = document.getElementById('result');
-    const bankSavingsOutput = document.getElementById('bank-savings');
     let retirementChart;
 
     inputs.forEach(input => {
@@ -15,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const lifeExpectancy = parseInt(document.getElementById('life-expectancy').value) || 0;
         const monthlyExpenses = parseFloat(document.getElementById('monthly-expenses').value) || 0;
         const currentAssets = parseFloat(document.getElementById('current-assets').value) || 0;
-        const investmentAmount = parseFloat(document.getElementById('investment-amount').value) || 0;
         const monthlyInvestment = parseFloat(document.getElementById('monthly-investment').value) || 0;
         const monthlySavings = parseFloat(document.getElementById('monthly-savings').value) || 0;
         const retirementBonus = parseFloat(document.getElementById('retirement-bonus').value) || 0;
@@ -33,20 +31,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         const yearsUntilRetirement = retirementAge - currentAge;
+        const monthsUntilRetirement = yearsUntilRetirement * 12;
 
-        // 銀行に残しておく金額の計算
-        const bankSavings = currentAssets - investmentAmount - (monthlyInvestment * 12 * yearsUntilRetirement);
-        bankSavingsOutput.textContent = bankSavings.toFixed(1);
-
-        // 退職時の総資産を計算
-        let investedFunds = investmentAmount * Math.pow(1 + interestRate, yearsUntilRetirement);
-        investedFunds += monthlyInvestment * 12 * ((Math.pow(1 + interestRate, yearsUntilRetirement) - 1) / interestRate);
-        let nonInvestedFunds = bankSavings + (monthlySavings * 12 * yearsUntilRetirement) + retirementBonus + otherAssets;
+        // 退職時の総資産を計算（複利運用）
+        const monthlyRate = Math.pow(1 + interestRate, 1/12) - 1;
+        const totalInvestment = (monthlyInvestment + monthlySavings) * ((Math.pow(1 + monthlyRate, monthsUntilRetirement) - 1) / monthlyRate);
+        const retirementAssets = currentAssets * Math.pow(1 + interestRate, yearsUntilRetirement) + totalInvestment + retirementBonus + otherAssets;
 
         // 年ごとの資金推移を計算
         const chartData = [];
         let currentYear = retirementAge;
+        let currentAssetBalance = retirementAssets;
         let fundsExhaustedAge = null;
+
+        // 運用する資産と運用しない資産の初期値を設定
+        let investedFunds = totalInvestment;
+        let nonInvestedFunds = retirementAssets - totalInvestment;
 
         while (currentYear <= lifeExpectancy) {
             // 年金と退職後の収入を加算
@@ -61,18 +61,21 @@ document.addEventListener('DOMContentLoaded', function() {
             // 年間の収支を計算
             let annualBalance = annualIncome - annualExpenses;
 
-            // 非投資資金から先に使用
+            // 資産残高の更新（複利運用）
+            currentAssetBalance = currentAssetBalance * (1 + interestRate) + annualBalance;
+
+            // 運用する資産と運用しない資産の更新
+            investedFunds *= (1 + interestRate);
             nonInvestedFunds += annualBalance;
+
+            // 非運用資産が不足した場合、運用資産から補填
             if (nonInvestedFunds < 0) {
                 investedFunds += nonInvestedFunds;
                 nonInvestedFunds = 0;
             }
 
-            // 投資資金の成長（年率）
-            investedFunds *= (1 + interestRate);
-
             // 資金が尽きた年齢を記録
-            if (investedFunds + nonInvestedFunds <= 0 && fundsExhaustedAge === null) {
+            if (currentAssetBalance <= 0 && fundsExhaustedAge === null) {
                 fundsExhaustedAge = currentYear;
                 break;
             }
@@ -105,8 +108,8 @@ document.addEventListener('DOMContentLoaded', function() {
             adjustedMaxAge = fundsExhaustedAge;
         } else {
             const lastDataPoint = chartData[chartData.length - 1];
-            const totalFunds = lastDataPoint.investedFunds + lastDataPoint.nonInvestedFunds;
-            const surplusYears = totalFunds / (monthlyExpenses * 12);
+            const totalBalance = lastDataPoint.investedFunds + lastDataPoint.nonInvestedFunds;
+            const surplusYears = totalBalance / (monthlyExpenses * 12);
             adjustedMaxAge = Math.min(Math.ceil(lifeExpectancy + surplusYears), 120); // 最大120歳まで
             resultText = `※あなたは年金だけで暮らせますが、年金減額に備えて見込額を2~3割減らして見積もりましょう。<br>あなたの計画では資産が${adjustedMaxAge.toFixed(1)}歳まで持ちます。`;
         }

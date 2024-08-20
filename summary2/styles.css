@@ -119,6 +119,26 @@ input[type="number"] {
     text-align: center;
 }
 
+/* 既存のCSSに以下を追加します */
+
+.output-group {
+    background-color: #e6f7ff;
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.output-group p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #545454;
+}
+
+.output-group span {
+    font-weight: bold;
+    color: #009bdd;
+}
+
 @media (max-width: 600px) {
     body {
         padding: 10px;
