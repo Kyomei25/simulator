@@ -60,7 +60,7 @@
                 </div>
             </div>
             <div class="input-group">
-                <label for="life-expectancy">何歳まで老後を送りたいか：</label>
+                <label for="life-expectancy">何歳まで老後を送りたいか（生涯年齢）：</label>
                 <div class="input-wrapper">
                     <input type="number" id="life-expectancy" min="0">
                     <span class="unit">歳</span>
@@ -83,7 +83,7 @@
         <div class="card">
             <h2>老後の資金計画</h2>
             <div class="input-group">
-                <label for="interest-rate">どの程度積極的に運用しますか（リスク許容度）：</label>
+                <label for="interest-rate">どの程度積極的に運用しますか（運用利率）：</label>
                 <select id="interest-rate">
                     <option value="0.01">1%</option>
                     <option value="0.03">3%</option>
@@ -130,10 +130,10 @@
                 }
             </style>
             <h3>②現役時代（定年退職を迎えるまで）の労働収入からまわす投資額</h3>
-            <p>「①いまある貯蓄からまわす投資額」とは別に、現役時代の収入から積立を実施する場合、入力しましょう！</p>
+            <p>①いまある貯蓄からまわす投資額」とは別に、現役時代の収入から積立投資を実施する場合、入力しましょう！</p>
 
             <div class="input-group">
-                <label for="monthly-savings">現役時代（定年退職を迎えるまで）の収入から積立する月額：</label>
+                <label for="monthly-savings">現役時代（定年退職を迎えるまで）の収入から積立投資する月額：</label>
                 <div class="input-wrapper">
                     <input type="number" id="monthly-savings" min="0">
                     <span class="unit">万円/月</span>
@@ -213,7 +213,7 @@
                 </div>
             </div>
             <div class="input-group">
-                <label for="retirement-income-period">老後の労働期間：</label>
+                <label for="retirement-income-period">老後の労働期間（年間）：</label>
                 <div class="input-wrapper">
                     <input type="number" id="retirement-income-period" min="0">
                     <span class="unit">年間</span>

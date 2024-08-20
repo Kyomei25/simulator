@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let investedFunds = totalInvestment;
         let nonInvestedFunds = retirementAssets - totalInvestment;
 
-        while (currentYear <= lifeExpectancy) {
+        while (currentAssetBalance > 0) {
             // 年金と退職後の収入を加算
             let annualIncome = pension;
             if (currentYear - retirementAge < retirementIncomePeriod) {
@@ -82,19 +82,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 nonInvestedFunds = 0;
             }
 
-            // 資金が尽きた年齢を記録
-            if (currentAssetBalance <= 0 && fundsExhaustedAge === null) {
-                fundsExhaustedAge = currentYear;
-                break;
-            }
-
             chartData.push({
                 age: currentYear,
                 investedFunds: Math.max(0, investedFunds),
                 nonInvestedFunds: Math.max(0, nonInvestedFunds)
             });
 
+            if (currentAssetBalance <= 0 && fundsExhaustedAge === null) {
+                fundsExhaustedAge = currentYear;
+            }
+
             currentYear++;
+            
+            // 120歳を超えたらループを終了
+            if (currentYear > 120) {
+                break;
+            }
         }
 
         // 結果テキストの更新と最大年齢の決定
@@ -107,18 +110,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateResultText(chartData, fundsExhaustedAge, lifeExpectancy, monthlyExpenses) {
         let resultText = '';
-        let adjustedMaxAge = lifeExpectancy;
+        let adjustedMaxAge = chartData[chartData.length - 1].age;
 
         if (fundsExhaustedAge) {
             const shortage = monthlyExpenses * 12 * (lifeExpectancy - fundsExhaustedAge);
             const shortageYears = lifeExpectancy - fundsExhaustedAge;
             resultText = `あなたの計画では資産が<span class="calc-value">${fundsExhaustedAge}</span>歳までしか持ちません。<br>${lifeExpectancy}歳まで約<span class="calc-value">${shortageYears.toFixed(1)}</span>年分<span class="calc-value">${shortage.toFixed(1)}</span>万円の資金が足りません。<br>何らかの対策が必要です。`;
-            adjustedMaxAge = fundsExhaustedAge;
         } else {
             const lastDataPoint = chartData[chartData.length - 1];
             const totalBalance = lastDataPoint.investedFunds + lastDataPoint.nonInvestedFunds;
             const surplusYears = totalBalance / (monthlyExpenses * 12);
-            adjustedMaxAge = Math.min(Math.ceil(lifeExpectancy + surplusYears), 120); // 最大120歳まで
             resultText = `※あなたは年金だけで暮らせますが、年金減額に備えて見込額を2~3割減らして見積もりましょう。<br>あなたの計画では資産が${adjustedMaxAge.toFixed(1)}歳まで持ちます。`;
         }
 
@@ -131,17 +132,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const investedData = chartData.map(data => data.investedFunds);
         const nonInvestedData = chartData.map(data => data.nonInvestedFunds);
 
-        // 資金が0になる年までデータを延長
-        while (labels[labels.length - 1] !== maxAge + '歳' && labels.length < 100) { // 最大100データポイントまで
-            labels.push(parseInt(labels[labels.length - 1]) + 1 + '歳');
-            investedData.push(0);
-            nonInvestedData.push(0);
-        }
-
         if (retirementChart) {
             retirementChart.data.labels = labels;
             retirementChart.data.datasets[0].data = investedData;
             retirementChart.data.datasets[1].data = nonInvestedData;
+            retirementChart.options.scales.x.max = maxAge;
             retirementChart.update();
         } else {
             retirementChart = new Chart(ctx, {
@@ -173,7 +168,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             title: {
                                 display: true,
                                 text: '年齢'
-                            }
+                            },
+                            max: maxAge
                         },
                         y: {
                             stacked: true,
@@ -192,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     if (label) {
                                         label += ': ';
                                     }
-                    if (context.parsed.y !== null) {
+                                    if (context.parsed.y !== null) {
                                         label += new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(context.parsed.y * 10000);
                                     }
                                     return label;
