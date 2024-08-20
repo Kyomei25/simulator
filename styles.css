@@ -376,7 +376,7 @@ label[for="dream-expenses"] {
     /* 月額小計の単位のスタイルを更新（スマートフォンビューのみ） */
     .output-group.inline label[for="monthly-total"] + .output-wrapper .unit {
         font-size: 15px;
-        font-weight: normal;
+        font-weight: bold;
     }
 
 
