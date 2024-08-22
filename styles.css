@@ -252,26 +252,11 @@ label[for="dream-expenses"] {
     white-space: nowrap;
 }
 
-.output-group.inline label[for="monthly-total"] + .output-wrapper .unit {
+.output-group.inline label[for="monthly-retirement-expenses"] + .output-wrapper .unit {
     font-size: 20px;
     font-weight: normal;
 }
 
-
-/* スマートフォン向けスタイル */
-@media (max-width: 600px) {
-    .output-group.inline label {
-        font-size: 15px;
-    }
-
-    .output-group.inline output {
-        font-size: 20px;
-    }
-
-    .output-group.inline .unit {
-        font-size: 15px;
-    }
-}
 /* スマートフォン向けスタイル */
 @media (max-width: 600px) {
     body {
@@ -306,36 +291,47 @@ label[for="dream-expenses"] {
         font-size: 20px;
     }
 
+    /* スマートフォン向けスタイル */
+@media (max-width: 600px) {
+    /* 垂直方向の中央揃え */
     .output-group.inline {
         display: flex;
-        flex-wrap: nowrap;
-        justify-content: flex-end;
-        align-items: center;
+        align-items: center;  /* 垂直方向に中央揃え */
+        justify-content: space-between; /* 要素間のスペースを確保 */
     }
 
     .output-group.inline label {
-        font-size: 16px;
+        font-size: 15px; /* スマホビューでのフォントサイズを15pxに設定 */
         font-weight: bold;
         margin-right: 5px;
-        white-space: nowrap;
     }
 
     .output-group.inline .output-wrapper {
         display: flex;
-        align-items: center;
+        align-items: center;  /* 垂直方向に中央揃え */
     }
 
     .output-group.inline output {
-        font-size: 15px;
+        font-size: 15px; /* スマホビューでのフォントサイズを15pxに設定 */
         font-weight: bold;
-        margin-right: 2px;
+        margin-right: 5px;
     }
 
     .output-group.inline .unit {
-        font-size: 16px;
+        font-size: 15px; /* スマホビューでのフォントサイズを15pxに設定 */
         font-weight: bold;
-        white-space: nowrap;
     }
+
+    /* 現在からのローン残高と老後からのローン残高のフォントサイズ調整 */
+    .output-group {
+        font-size: 15px; /* スマホビューでのフォントサイズを15pxに設定 */
+    }
+
+    .output-group output {
+        font-size: 15px; /* スマホビューでのフォントサイズを15pxに設定 */
+    }
+}
+
     
     .card.total-expenses .output-group.total.inline {
         display: flex;
