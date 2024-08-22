@@ -138,6 +138,11 @@ output {
     align-items: center;
 }
 
+.output-group.inline .output-wrapper .unit {
+    font-size: 20px; /* フォントサイズを20pxに設定 */
+    font-weight: normal; /* 太字を解除 */
+}
+
 .output-group.inline output {
     font-size: 40px;
     color: #009bdd;
@@ -219,12 +224,6 @@ label[for="dream-expenses"] {
     margin-bottom: 10px;
 }
 
-.output-group.inline .output-wrapper .unit {
-    font-size: 20px; /* フォントサイズを20pxに設定 */
-    font-weight: normal; /* 太字を解除 */
-}
-
-
 .output-group.total.inline {
     display: flex;
     align-items: center;
@@ -264,6 +263,20 @@ label[for="dream-expenses"] {
 }
 
 
+/* スマートフォン向けスタイル */
+@media (max-width: 600px) {
+    .output-group.inline label {
+        font-size: 15px;
+    }
+
+    .output-group.inline output {
+        font-size: 20px;
+    }
+
+    .output-group.inline .unit {
+        font-size: 15px;
+    }
+}
 /* スマートフォン向けスタイル */
 @media (max-width: 600px) {
     body {
