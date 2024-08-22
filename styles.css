@@ -25,7 +25,11 @@ form {
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     margin-bottom: 30px;
+    max-width: 600px; /* カードの最大横幅を指定 */
+    margin-left: auto; /* 左右中央揃え */
+    margin-right: auto; /* 左右中央揃え */
 }
+
 
 h2 {
     color: #009bdd;
