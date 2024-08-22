@@ -354,7 +354,7 @@ label[for="dream-expenses"] {
     }
 
     .card.total-expenses .output-group.total.inline label {
-        font-size: 15px;
+        font-size: 20px;
         font-weight: bold;
         margin-right: 5px;
         white-space: nowrap;
@@ -367,7 +367,7 @@ label[for="dream-expenses"] {
     }
 
     .card.total-expenses .unit {
-        font-size: 15px;
+        font-size: 20px;
         font-weight: bold;
         white-space: nowrap;
     }
