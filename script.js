@@ -15,7 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
         calculateRetirementYears();
         calculateMonthlyExpenses();
         calculateYearlyExpenses();
-        calculateTotalExpenses();
+        calculateLoanBalance();  // 住宅ローンの計算を先に行う
+        calculateTotalExpenses();  // 老後期間の支出合計は住宅ローン残高のみ含める
         calculateMonthlyRetirementExpenses();
     }
 
@@ -39,7 +40,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function calculateYearlyExpenses() {
-        // 'insurance-expenses' と 'other-expenses' を削除
         const yearlyExpenses = [
             'dream-expenses'
         ].reduce((total, id) => {
@@ -49,25 +49,37 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('yearly-total').textContent = yearlyExpenses.toFixed(1);
     }
 
-    function calculateTotalExpenses() {
+    function calculateLoanBalance() {
+        const monthlyMortgage = parseFloat(document.getElementById('monthly-mortgage').value) || 0;
+        const remainingMortgageYears = parseFloat(document.getElementById('remaining-mortgage-years').value) || 0;
         const retirementYears = parseInt(document.getElementById('retirement-years').textContent) || 0;
-        const monthlyTotal = parseFloat(document.getElementById('monthly-total').textContent) || 0;
-        const yearlyTotal = parseFloat(document.getElementById('yearly-total').textContent) || 0;
+
+        const currentLoanBalance = monthlyMortgage * remainingMortgageYears * 12;
+        const retirementLoanBalance = Math.max(0, (remainingMortgageYears - retirementYears) * monthlyMortgage * 12);
+
+        document.getElementById('current-loan-balance').textContent = currentLoanBalance.toFixed(1);
+        document.getElementById('retirement-loan-balance').textContent = retirementLoanBalance.toFixed(1);
+
+        return retirementLoanBalance;
+    }
+
+    function calculateTotalExpenses() {
+        const retirementLoanBalance = calculateLoanBalance(); // 老後からのローン残高のみを含める
         const bufferFund = parseFloat(document.getElementById('buffer-fund').value) || 0;
 
-        const totalExpenses = (monthlyTotal * 12 + yearlyTotal) * retirementYears + bufferFund;
+        const totalExpenses = retirementLoanBalance + bufferFund;
         document.getElementById('total-expenses').textContent = totalExpenses.toFixed(1);
     }
 
     function calculateMonthlyRetirementExpenses() {
         const totalExpenses = parseFloat(document.getElementById('total-expenses').textContent) || 0;
-        const retirementYears = parseInt(document.getElementById('retirement-years').textContent) || 1; // 0で割らないように1を使用
-        
+        const retirementYears = parseInt(document.getElementById('retirement-years').textContent) || 1;
+
         const monthlyRetirementExpenses = totalExpenses / retirementYears / 12;
         
         document.getElementById('monthly-retirement-expenses').textContent = monthlyRetirementExpenses.toFixed(1);
     }
 
-    // 初期計算
     calculateAll();
 });
+

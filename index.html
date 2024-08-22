@@ -8,30 +8,30 @@
 </head>
 <body>
 
-    <form id="retirement-calculator">
+    <div id="retirement-calculator">
         <div class="card">
-            <h2>老後の期間</h2>
-            <div class="input-group">
-                <label for="retirement-age">老後が始まる年齢（退職年齢）：</label>
-                <div class="input-wrapper">
-                    <input type="number" id="retirement-age" name="retirement-age" min="0" required>
-                    <span class="unit">歳</span>
-                </div>
+          <h2>老後の期間</h2>
+          <div class="input-group">
+            <label for="retirement-age">老後が始まる年齢（退職年齢）：</label>
+            <div class="input-wrapper">
+              <input type="number" id="retirement-age" min="0">
+              <span class="unit">歳</span>
             </div>
-            <div class="input-group">
-                <label for="life-expectancy">何歳まで老後を送りたいか（生涯年齢）：</label>
-                <div class="input-wrapper">
-                    <input type="number" id="life-expectancy" name="life-expectancy" min="0" required>
-                    <span class="unit">歳</span>
-                </div>
+          </div>
+          <div class="input-group">
+            <label for="life-expectancy">何歳まで老後を送りたいか（生涯年齢）：</label>
+            <div class="input-wrapper">
+              <input type="number" id="life-expectancy" min="0">
+              <span class="unit">歳</span>
             </div>
-            <div class="output-group inline">
-                <label for="retirement-years">老後は</label>
-                <div class="output-wrapper">
-                    <output id="retirement-years"></output>
-                    <span class="unit">年間</span>
-                </div>
+          </div>
+          <div class="output-group inline">
+            <label>老後は</label>
+            <div class="output-wrapper">
+              <output id="retirement-years"></output>
+              <span class="unit">年間</span>
             </div>
+          </div>
         </div>
 
         <div class="card">
@@ -93,66 +93,82 @@
                 </div>
             </div>
             <div class="output-group inline">
-                <label for="monthly-total">月額小計：</label>
+                <label>月額小計：</label>
                 <div class="output-wrapper">
-                    <output id="monthly-total"></output>
+                  <output id="monthly-total"></output>
+                  <span class="unit">万円/月</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+                <h2>老後の住宅ローン</h2>
+                <div class="input-group">
+                  <label for="monthly-mortgage">住宅ローンの月額：</label>
+                  <div class="input-wrapper">
+                    <input type="number" id="monthly-mortgage" min="0">
                     <span class="unit">万円/月</span>
+                  </div>
                 </div>
-            </div>
-        </div>
+                <div class="input-group">
+                  <label for="remaining-mortgage-years">ローン支払い残年数（例.10年6ヶ月　→　10.6年）：</label>
+                  <div class="input-wrapper">
+                    <input type="number" id="remaining-mortgage-years" min="0" step="0.1">
+                    <span class="unit">年</span>
+                  </div>
+                </div>
+                <div class="output-group">
+                  <div>現在からのローン残高：<output id="current-loan-balance"></output>万円</div>
+                  <div>老後からのローン残高：<output id="retirement-loan-balance"></output>万円</div>
+                </div>
+              </div>
 
-        <div class="card">
-            <h2>老後の年間特別支出</h2>
-           
-            <div class="input-group">
-                <label for="dream-expenses">
-                    叶えたい夢の年間予算<br>
-                    （旅行・イベント・孫など）：
-                </label>
-                <div class="input-wrapper">
-                    <input type="number" id="dream-expenses" name="dream-expenses" step="0.1" min="0" required>
+              <div class="card">
+                <h2>老後の年間特別支出</h2>
+                <div class="input-group">
+                  <label for="dream-expenses">叶えたい夢の年間予算（旅行・イベント・孫など）：</label>
+                  <div class="input-wrapper">
+                    <input type="number" id="dream-expenses" min="0">
                     <span class="unit">万円/年</span>
-                </div>
-            </div>
-            
-            <div class="output-group inline">
-                <label for="yearly-total">年額小計：</label>
-                <div class="output-wrapper">
-                    <output id="yearly-total"></output>
-                    <span class="unit">万円/年</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>老後の余裕資金</h2>
-            <div class="input-group">
-                <label for="buffer-fund">
-                    余裕をもって準備したい額：
-                </label>
-                <div class="input-wrapper">
-                    <input type="number" id="buffer-fund" name="buffer-fund" step="0.1" min="0" required>
-                    <span class="unit">万円</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="card total-expenses">
-            <h2>老後期間の支出合計</h2>
-            <div class="output-group total inline">
-                <label for="total-expenses">老後合計：</label>
-                <div class="output-wrapper">
-                    <output id="total-expenses"></output>
-                    <span class="unit">万円</span>
-                    </div>       
+                  </div>
                 </div>
                 <div class="output-group inline">
-                    <label for="monthly-total">老後の月額支出：</label>
-                    <div class="output-wrapper">
-                        <output id="monthly-retirement-expenses"></output>
-                        <span class="unit">万円/月</span>
-                    </div>
+                  <label>年額小計：</label>
+                  <div class="output-wrapper">
+                    <output id="yearly-total"></output>
+                    <span class="unit">万円/年</span>
+                  </div>
                 </div>
+              </div>
+            
+              <div class="card">
+                <h2>老後の余裕資金</h2>
+                <div class="input-group">
+                  <label for="buffer-fund">余裕をもって準備したい額：</label>
+                  <div class="input-wrapper">
+                    <input type="number" id="buffer-fund" min="0">
+                    <span class="unit">万円</span>
+                  </div>
+                </div>
+              </div>
+            
+              <div class="card total-expenses">
+                <h2>老後期間の支出合計</h2>
+                <div class="output-group total inline">
+                  <label>老後合計：</label>
+                  <div class="output-wrapper">
+                    <output id="total-expenses"></output>
+                    <span class="unit">万円</span>
+                  </div>
+                </div>
+                <div class="output-group inline">
+                  <label>老後の月額支出：</label>
+                  <div class="output-wrapper">
+                    <output id="monthly-retirement-expenses"></output>
+                    <span class="unit">万円/月</span>
+                  </div>
+                </div>
+              </div>
             </div>
     </form>
 
