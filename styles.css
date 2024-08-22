@@ -88,6 +88,13 @@ input[type="number"] {
     background-color: #e6f7ff;
     border-radius: 5px;
     padding: 10px;
+    text-align: right; /* 全体を右寄せ */
+    font-size: 20px; /* フォントサイズを20pxに設定 */
+}
+
+.output-group div {
+    display: inline-block;
+    margin-bottom: 10px;
 }
 
 .output-wrapper {
