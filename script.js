@@ -50,12 +50,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function calculateLoanBalance() {
+        const currentAge = parseInt(document.getElementById('current-age').value) || 0;
+        const retirementAge = parseInt(document.getElementById('retirement-age').value) || 0;
         const monthlyMortgage = parseFloat(document.getElementById('monthly-mortgage').value) || 0;
         const remainingMortgageYears = parseFloat(document.getElementById('remaining-mortgage-years').value) || 0;
-        const retirementYears = parseInt(document.getElementById('retirement-years').textContent) || 0;
 
-        const currentLoanBalance = monthlyMortgage * remainingMortgageYears * 12;
-        const retirementLoanBalance = Math.max(0, (remainingMortgageYears - retirementYears) * monthlyMortgage * 12);
+        // 現在からのローン残高 = 住宅ローンの月額 × 12 × ローン支払い残年数
+        const currentLoanBalance = monthlyMortgage * 12 * remainingMortgageYears;
+
+        // 老後からのローン残高 = 住宅ローンの月額 × 12 × Math.max(0, ローン支払い残年数 - （老後が始まる年齢 - 現在の年齢）)
+        const yearsBeforeRetirement = retirementAge - currentAge;
+        const remainingYearsAfterRetirement = Math.max(0, remainingMortgageYears - yearsBeforeRetirement);
+        const retirementLoanBalance = monthlyMortgage * 12 * remainingYearsAfterRetirement;
 
         document.getElementById('current-loan-balance').textContent = currentLoanBalance.toFixed(1);
         document.getElementById('retirement-loan-balance').textContent = retirementLoanBalance.toFixed(1);
@@ -82,4 +88,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
     calculateAll();
 });
+
 
