@@ -39,6 +39,10 @@ h2 {
     font-size: 25px;
 }
 
+p {
+    font-size: 20px; 
+}
+
 .input-group, .output-group {
     margin-bottom: 15px;
 }
@@ -53,30 +57,45 @@ label {
 
 .input-group {
     display: flex;
-    flex-direction: column; /* ラベルと入力フィールドを縦に並べる */
-    margin-bottom: 20px; /* グループ間のスペースを追加 */
+    flex-direction: column;
+    align-items: flex-start; /* 左寄せに戻す */
+    margin-bottom: 20px;
 }
-
-p {
-    font-size: 20px; /* フォントサイズを20pxに設定 */
-}
-
 
 .input-group label {
-    display: block;
-    margin-bottom: 8px; /* ラベルと入力フィールドの間のスペース */
+    width: 100%;
+    text-align: left;
+    margin-bottom: 5px;
 }
 
 .input-group select {
-    width: auto; /* プルダウンの幅を自動に設定 */
-    align-self: flex-end; /* プルダウンメニューを右寄せ */
+    align-self: flex-end; /* セレクトボックスを右寄せ */
+    width: auto;
+    min-width: 200px;
     padding: 10px;
     font-size: 16px;
-    border: 1px solid #009bdd; /* 枠線を統一 */
-    border-radius: 5px; /* 角を丸める */
-    background-color: #ffffff; /* 背景色を指定 */
+    border: 1px solid #009bdd;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #545454;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 1em;
 }
 
+.input-group select::-ms-expand {
+    display: none;
+}
+
+.input-group select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
 .input-wrapper {
     display: flex;
     align-items: center; /* フィールドと単位を中央揃え */
@@ -236,6 +255,14 @@ input[type="number"]:focus {
 
     label, input[type="number"], .unit {
         font-size: 15px;
+    }
+
+    .input-group select {
+        width: 100%; /* スマートフォンでは幅いっぱいに */
+        min-width: unset;
+        font-size: 14px;
+        padding: 8px;
+        align-self: stretch; /* スマートフォンでは幅いっぱいに */
     }
 
     .output-group.inline .output-label,

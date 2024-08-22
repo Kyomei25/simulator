@@ -74,7 +74,7 @@
                 </div>
             </div>
             <div class="output-group">
-                <p>老後までに何年間(現役期間)：<span id="working-years"></span>年間</p>
+                <p>老後まであと何年間：<span id="working-years"></span>年間</p>
                 <p>老後の期間：<span id="retirement-years"></span>年間</p>
                 <p>老後の支出合計：<span id="total-expenses"></span>万円</p>
             </div>
@@ -85,29 +85,29 @@
             <div class="input-group">
                 <label for="interest-rate">どの程度積極的に運用しますか（運用利率）：</label>
                 <select id="interest-rate">
-                    <option value="0.01">1%</option>
-                    <option value="0.03">3%</option>
-                    <option value="0.05" selected>5%</option>
+                    <option value="0.01">安定(リスク小)</option>
+                    <option value="0.03">バランス(リスク中)</option>
+                    <option value="0.05" selected>積極(リスク大)</option>
                 </select>
             </div>
             <h3>①いまある貯蓄からまわす投資額</h3>
-            <p>現在の資産合計のうち投資にまわす配分を決めて入力しましょう！</p>
+            <p>現在の運用していない資産合計のうち投資にまわす配分を決めて入力しましょう！</p>
             <div class="input-group">
-                <label for="current-assets">現在の資産合計：</label>
+                <label for="current-assets">現在、運用していない資産合計：</label>
                 <div class="input-wrapper">
                     <input type="number" id="current-assets" min="0">
                     <span class="unit">万円</span>
                 </div>
             </div>
             <div class="input-group">
-                <label for="investment-amount">現在の資産合計から一括で投資にまわす額：</label>
+                <label for="investment-amount">現在の運用していない資産合計から一括で投資にまわす額：</label>
                 <div class="input-wrapper">
                     <input type="number" id="investment-amount" min="0">
                     <span class="unit">万円</span>
                 </div>
             </div>
             <div class="input-group">
-                <label for="monthly-investment">上記の一括投資額とは別に、現在の資産合計から積立で投資にまわす月額：</label>
+                <label for="monthly-investment">上記の一括投資額とは別に、現在の運用していない資産合計から積立で投資にまわす月額：</label>
                 <div class="input-wrapper">
                     <input type="number" id="monthly-investment" min="0">
                     <span class="unit">万円/月</span>
@@ -129,11 +129,11 @@
                     transform: translate(-50%, -50%);
                 }
             </style>
-            <h3>②現役時代（定年退職を迎えるまで）の労働収入からまわす投資額</h3>
-            <p>「①いまある貯蓄からまわす投資額」とは別に、現役時代の収入から積立投資を実施する場合、入力しましょう！</p>
+            <h3>②現在から定年までの期間の労働収入からまわす投資額</h3>
+            <p>①とは別に、現在から定年までの期間の収入から積立投資を実施する場合、入力しましょう！</p>
 
             <div class="input-group">
-                <label for="monthly-savings">現役時代（定年退職を迎えるまで）の収入から積立投資する月額：</label>
+                <label for="monthly-savings">現在から定年までの収入から積立投資する：</label>
                 <div class="input-wrapper">
                     <input type="number" id="monthly-savings" min="0">
                     <span class="unit">万円/月</span>
