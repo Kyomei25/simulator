@@ -311,6 +311,10 @@ label[for="dream-expenses"] {
         font-size: 20px;
     }
 
+    .output-group {
+        font-size: 15px; /* フォントサイズを20pxに設定 */
+    }
+
     .output-group.inline {
         display: flex;
         flex-wrap: nowrap;
