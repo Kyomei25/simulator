@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
         calculateMonthlyExpenses();
         calculateYearlyExpenses();
         calculateTotalExpenses();
-        calculateMonthlyRetirementExpenses(); // 新しい関数を追加
+        calculateMonthlyRetirementExpenses();
     }
 
     function calculateRetirementYears() {
@@ -39,8 +39,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function calculateYearlyExpenses() {
+        // 'insurance-expenses' と 'other-expenses' を削除
         const yearlyExpenses = [
-            'insurance-expenses', 'dream-expenses', 'other-expenses'
+            'dream-expenses'
         ].reduce((total, id) => {
             return total + (parseFloat(document.getElementById(id).value) || 0);
         }, 0);
