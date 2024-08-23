@@ -390,6 +390,37 @@ label[for="dream-expenses"] {
         font-size: 30px;
     }
 
+    /* タイトル部分のスタイル */
+header h1 {
+    text-align: center;
+    margin: 20px 0;
+    line-height: 1.2;
+}
+
+header h1 .large-highlight {
+    color: #f1b315;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+header h1 .small-highlight {
+    color: #f1b315;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+header h1 .small-text {
+    color: #545454;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+header h1 .large-text {
+    color: #545454;
+    font-size: 30px;
+    font-weight: bold;
+}
+
     .card {
         padding: 15px;
     }
