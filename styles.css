@@ -533,6 +533,48 @@ header h1 .large-text {
         font-weight: bold;
     }
 
+    @media (max-width: 600px) {
+        .tabs {
+          flex-direction: row; /* 横並びに変更 */
+          border-bottom: none; /* 下線を削除 */
+        }
+      
+        .tab-item {
+          flex: 1; /* 均等に幅を分配 */
+        }
+      
+        .tab-item a {
+          padding: 10px 2px; /* 左右のパディングを縮小 */
+          font-size: 12px; /* フォントサイズを小さく */
+          border: none; /* 枠線を削除 */
+          border-radius: 0; /* 角丸を削除 */
+          background-color: transparent; /* 背景色を透明に */
+          color: #545454; /* テキスト色を設定 */
+        }
+      
+        .tab-item.active a {
+          background-color: transparent; /* アクティブタブの背景も透明に */
+          color: #f1b315; /* アクティブタブのテキスト色を変更 */
+          font-weight: bold; /* アクティブタブを太字に */
+          border-bottom: 2px solid #f1b315; /* アクティブタブに下線を追加 */
+        }
+      
+        /* 区切り線のスタイル */
+        .tab-item:not(:last-child)::after {
+          content: '|';
+          color: #545454;
+          position: absolute;
+          right: 0;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      
+        /* 最後の項目の右側の区切り線を削除 */
+        .tab-item:last-child::after {
+          content: none;
+        }
+      }
+
 
     
 
