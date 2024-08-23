@@ -7,6 +7,108 @@ body {
     color: #545454;
 }
 
+/* Tab Navigation Styles */
+#tab-navigation {
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  
+  .tabs {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-bottom: 2px solid #f1b315;
+    width: 100%;
+    font-size: 20px;
+  }
+  
+  .tab-item {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .tab-item a {
+    display: block;
+    padding: 10px 5px;
+    background-color: #F7F7F7;
+    color: #545454;
+    text-decoration: none;
+    border: 2px solid #f1b315;
+    border-bottom: none;
+    border-radius: 5px 5px 0 0;
+    transition: background-color 0.3s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .tab-item:not(:last-child) a {
+    border-right: none;
+  }
+  
+  .tab-item a:hover {
+    background-color: #F7F7F7;
+  }
+  
+  .tab-item.active a {
+    background-color: #f1b315;
+    color: white;
+  }
+  
+  /* Responsive design for smaller screens */
+  @media (max-width: 600px) {
+    .tabs {
+      flex-direction: column;
+    }
+  
+    .tab-item {
+      width: 100%;
+    }
+  
+    .tab-item a {
+      border: 1px solid #f1b315;
+      border-radius: 0;
+    }
+  
+    .tab-item:not(:last-child) a {
+      border-right: 1px solid #f1b315;
+      border-bottom: none;
+    }
+  }
+
+
+/* タイトル部分のスタイル */
+header h1 {
+    text-align: center;
+    margin: 20px 0;
+    line-height: 1.2;
+}
+
+header h1 .large-highlight {
+    color: #f1b315;
+    font-size: 80px;
+    font-weight: bold;
+}
+
+header h1 .small-highlight {
+    color: #f1b315;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+header h1 .small-text {
+    color: #545454;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+header h1 .large-text {
+    color: #545454;
+    font-size: 80px;
+    font-weight: bold;
+}
+
 .container {
     max-width: 800px;
     margin: 0 auto;
