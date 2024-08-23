@@ -422,4 +422,34 @@ header h1 .large-text {
     .calc-value {
         font-size: 20px; /* スマホビューでのフォントサイズ */
     }
+
+    /* 既存のデスクトップ用スタイルはそのまま保持します */
+
+    @media (max-width: 600px) {
+        .desktop-text {
+            display: none;
+          }
+          
+          .mobile-text {
+            display: inline;
+          }
+        
+          .tabs {
+            border: none;
+            overflow: hidden;
+            border-radius: 5px;
+          }
+        
+          .tab-item a {
+            font-size: 14px;
+            background-color: #F7F7F7;
+            color: #545454;
+            border: none;
+          }
+        
+          .tab-item.active a {
+            background-color: #f1b315;
+            color: white;
+            font-weight: bold;
+          }
 }
