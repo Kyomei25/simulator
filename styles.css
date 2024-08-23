@@ -359,6 +359,7 @@ label[for="dream-expenses"] {
     font-size: 30px;
     color: #545454;
     white-space: nowrap;
+    font-weight: bold;
 }
 
 .output-group.inline label[for="monthly-total"] + .output-wrapper .unit {
@@ -562,9 +563,5 @@ header h1 .large-text {
             background-color: #f1b315;
             color: white;
             font-weight: bold;
-          }
-
-
-    
-
+          }   
 }
