@@ -14,6 +14,36 @@ body {
     width: 100%;
   }
   
+  .tabs {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-bottom: 2px solid #f1b315;
+    width: 100%;
+    font-size: 20px;
+  }
+  
+  .tab-item {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .tab-item a {
+    display: block;
+    padding: 10px 5px;
+    background-color: #F7F7F7;
+    color: #545454;
+    text-decoration: none;
+    border: 2px solid #f1b315;
+    border-bottom: none;
+    border-radius: 5px 5px 0 0;
+    transition: background-color 0.3s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
   .tab-item:not(:last-child) a {
     border-right: none;
   }
@@ -25,84 +55,6 @@ body {
   .tab-item.active a {
     background-color: #f1b315;
     color: white;
-  }
-
-  /* 共通のタブスタイル */
-.tabs {
-    display: flex;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-  }
-  
-  .tab-item {
-    flex: 1;
-    text-align: center;
-  }
-  
-  .tab-item a {
-    display: block;
-    text-decoration: none;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  /* デスクトップ用スタイル */
-  @media (min-width: 601px) {
-    .mobile-text {
-      display: none;
-    }
-  
-    .tab-item a {
-      padding: 10px 5px;
-      color: #545454;
-      background-color: #e6f7ff;
-      border: 2px solid #f1b315;
-      border-bottom: none;
-      border-radius: 5px 5px 0 0;
-    }
-  
-    .tab-item.active a {
-      background-color: #f1b315;
-      color: white;
-    }
-  }
-  
-  /* スマートフォン向けのスタイル */
-  @media (max-width: 600px) {
-    .desktop-text {
-      display: none;
-    }
-    
-    .mobile-text {
-      display: inline-block;
-    }
-  
-    .tabs {
-      background-color: #f7f7f7;
-      padding: 10px;
-      border-radius: 0;
-    }
-  
-    .tab-item {
-      margin: 0 5px;
-    }
-  
-    .tab-item a {
-      font-size: 14px;
-      padding: 15px 10px;
-      background-color: white;
-      color: #545454;
-      border: none;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-  
-    .tab-item.active a {
-      background-color: #f1b315;
-      color: white;
-      font-weight: bold;
-    }
   }
   
   /* Responsive design for smaller screens */
@@ -582,6 +534,35 @@ header h1 .large-text {
         font-weight: bold;
     }
 
+    /* 既存のデスクトップ用スタイルはそのまま保持します */
+
+    @media (max-width: 600px) {
+        .desktop-text {
+            display: none;
+          }
+          
+          .mobile-text {
+            display: inline;
+          }
+        
+          .tabs {
+            border: none;
+            overflow: hidden;
+            border-radius: 5px;
+          }
+        
+          .tab-item a {
+            font-size: 14px;
+            background-color: #F7F7F7;
+            color: #545454;
+            border: none;
+          }
+        
+          .tab-item.active a {
+            background-color: #f1b315;
+            color: white;
+            font-weight: bold;
+          }
 
 
     
