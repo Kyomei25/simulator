@@ -7,6 +7,7 @@ body {
     color: #545454;
 }
 
+
 /* Tab Navigation Styles */
 #tab-navigation {
     margin-bottom: 20px;
@@ -537,32 +538,31 @@ header h1 .large-text {
 
     @media (max-width: 600px) {
         .desktop-text {
-          display: none;
-        }
+            display: none;
+          }
+          
+          .mobile-text {
+            display: inline;
+          }
         
-        .mobile-text {
-          display: inline;
-        }
-      
-        .tabs {
-          border: none;
-          overflow: hidden;
-          border-radius: 5px;
-        }
-      
-        .tab-item a {
-          font-size: 14px;
-          border: none;
-          background-color: #F7F7F7;
-          border-radius: 0;
-        }
-      
-        .tab-item.active a {
-          background-color: #f1b315;
-          color: white;
-          font-weight: bold;
-        }
-      }
+          .tabs {
+            border: none;
+            overflow: hidden;
+            border-radius: 5px;
+          }
+        
+          .tab-item a {
+            font-size: 14px;
+            background-color: #F7F7F7;
+            color: #545454;
+            border: none;
+          }
+        
+          .tab-item.active a {
+            background-color: #f1b315;
+            color: white;
+            font-weight: bold;
+          }
 
 
     
